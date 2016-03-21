@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def create
     @user =User.create users_params
     if @user.persisted?
+      session[:user_id] = @user.id
       flash[:success] = "Registered successfully"
       redirect_to root_path
     else
