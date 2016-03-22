@@ -36,6 +36,8 @@ gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'redcarpet'
 gem 'rails_12factor', group: 'production'
 gem 'simple_form'
+gem "font-awesome-rails"
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

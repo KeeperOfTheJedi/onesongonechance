@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create] 
   delete 'logout' => 'sessions#destroy'
-  
+  get 'people' => 'users#people'
+  get 'follow/:id' => 'users#follow', as: :follow
 
 
   # The priority is based upon order of creation: first created -> highest priority.

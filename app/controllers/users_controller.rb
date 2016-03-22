@@ -14,6 +14,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def follow
+    raise 'blah'
+  end
+
+  def people
+    @users =User.where(["id != ?", session[:user_id]])
+  end
+
   private
 
   def users_params
