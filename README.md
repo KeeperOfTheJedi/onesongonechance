@@ -6,7 +6,7 @@ Submitted by: Oliver Nadj
 
 Time spent: 16 hours
 
-URL: **Insert your Heroku URL here**
+URL: https://young-depths-54430.herokuapp.com | https://git.heroku.com/young-depths-54430.git
 
 ## User Stories
 
