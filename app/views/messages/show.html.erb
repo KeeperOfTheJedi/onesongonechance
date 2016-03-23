@@ -1,2 +1,15 @@
-<h1>Messages#read</h1>
+<% if @message.present? %>
+  <div class="container messages">
+    <div class="row">
+      <div class="col-lg-4">
+        <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+        <h2><%= @message.sender %> </h2>
+        <p><%= @message.title %></p>
+        <p><%= @message.body %></p>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <h1>No messages...</h1>
+<% end %>
 

@@ -1,7 +1,18 @@
-<h1>Register</h1>
-<%= simple_form_for @message = Message.new do |f| %>
-  <%= f.input :title %>
-  <%= f.input :body %>
-  <%= f.input :recipient_id, :collection => [['Mike',12], ['Nick',13]] %>
-  <%= f.submit class:"btn btn-primary" %>
-<% end %>
+<div class="card card-block">
+  <% if @contacts.present? %>
+    <h4 class="card-title">Send a new message</h4>
+    <p class="card-text">
+      <%= simple_form_for @message = Message.new do |f| %>
+        <%= f.input :title %>
+        <%= f.input :body %>
+        <%= f.input :recipient_id, :collection => @contacts %>
+        <%= f.submit class:"btn btn-primary" %>
+      <% end %>
+    </p>
+  <% else %>
+    <h4 class="card-title">You have no friends yet</h4>
+    <p class="card-text">
+      Go to <%= link_to "find some", people_path, class: 'nav-link' %>
+    </p>
+  <% end %>
+</div>
