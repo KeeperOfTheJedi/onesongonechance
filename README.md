@@ -1,23 +1,23 @@
-# Homework 2 - *Name of App*
+# Homework 2 - CoderChat
 
-**Name of your app** is a Ruby on Rails blog application that allows users to send messages to each other that can only be read once.
+CoderChat is a Ruby on Rails blog application that allows users to send messages to each other that can only be read once.
 
-Submitted by: **Your Name Here**
+Submitted by: Oliver Nadj
 
-Time spent: **X** hours
+Time spent: 16 hours
 
 URL: **Insert your Heroku URL here**
 
 ## User Stories
 
-The following **required** functionality is complete:
+The following functionality is complete:
 
 
-* [ ] User can sign up by providing their email, password, and name. 
-* [ ] User can login using an email and password. 
+* [x] User can sign up by providing their email, password, and name. 
+* [x] User can login using an email and password. 
 * [ ] After logging in, the user is taken to a page that has a list of incoming messages, sorted in descending chronological order (newest messages at top), a "new message" link, an "add friends" link, and a "sent messages" link.
 * [ ] Unread messages should be **bold** or something similar in the list of messages. 
-* [ ] Clicking the "add friends" link takes the user to a page with all users listed, with a link to "add user to friends list". 
+* [x] Clicking the "add friends" link takes the user to a page with all users listed, with a link to "add user to friends list". 
 * [ ] Clicking on "new message" takes the user to a page where they can write a new mesasge. The recipient field should be a dropdown, where the options are names from the user's friends.
 * [ ] Clicking on "sent messages" takes the user to a page listing messages they have sent. Each message should display at what time it was read by the recipient, or "unread". The user cannot read the contents of the messages.
 * [ ] User can read a message's content only once. Once the message has been read, the user will see a page indicating the message has already been read.

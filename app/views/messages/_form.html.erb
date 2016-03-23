@@ -1,0 +1,7 @@
+<h1>Register</h1>
+<%= simple_form_for @message = Message.new do |f| %>
+  <%= f.input :title %>
+  <%= f.input :body %>
+  <%= f.input :recipient_id, :collection => [['Mike',12], ['Nick',13]] %>
+  <%= f.submit class:"btn btn-primary" %>
+<% end %>

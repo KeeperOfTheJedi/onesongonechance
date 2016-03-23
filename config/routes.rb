@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   resources :users
+  resources :messages, only: [:index, :create, :show] 
   resources :sessions, only: [:new, :create] 
   delete 'logout' => 'sessions#destroy'
-  get 'people' => 'users#people'
-  get 'follow/:id' => 'users#follow', as: :follow
-
+  get 'people' => 'friends#people'
+  get 'follow/:id' => 'friends#follow', as: :follow
+  get 'unfollow/:id' => 'friends#unfollow', as: :unfollow
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

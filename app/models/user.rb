@@ -16,4 +16,10 @@ class User < ActiveRecord::Base
     name
   end
 
+  def not_followings 
+    User.where.not({id: self.following.present? ? 
+      self.following.map{|x| x = x[:following_id]}.push(self.id) : self.id
+    })
+  end
+
 end
