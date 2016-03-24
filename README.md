@@ -44,7 +44,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![Video Walkthrough](https://github.com/olivernadj/Week-2-Assignment-CoderChat/coderchat-walkthrough.gif)
+![Video Walkthrough](https://raw.githubusercontent.com/olivernadj/Week-2-Assignment-CoderChat/master/coderchat-walkthrough.gif)
 
 ## Notes
 
