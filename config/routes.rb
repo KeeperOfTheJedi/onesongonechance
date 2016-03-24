@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :users
-  resources :messages, only: [:new, :index, :create, :show] 
+  resources :messages, only: [:new, :index, :create, :show]
+  get 'sent_messages' => 'messages#sent' 
   resources :sessions, only: [:new, :create] 
   delete 'logout' => 'sessions#destroy'
   get 'people' => 'friends#people'

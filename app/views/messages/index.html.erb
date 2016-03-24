@@ -7,8 +7,16 @@
           <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
           <h2><%= message.sender %> </h2>
           <p><%= message.title %></p>
-          <p><%= message.body.split(/\s+/, 4)[0...3].join(' ') %> ...
-            <%= link_to "View details »", message_path(message) %>
+          <p>
+            <% if message.read_at.present? %>
+              <span class="label label-warning">
+                Read at: 
+                <%= message.read_at.strftime("%Y %B %d, %l:%M%P") %>
+              </span>
+            <% else %>
+              <%= message.body.split(/\s+/, 4)[0...3].join(' ') %> ...
+              <%= link_to "View details »", message_path(message) %>
+            <% end %>
           </p>
         </div>
       </div>

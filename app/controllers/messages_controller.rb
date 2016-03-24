@@ -2,7 +2,11 @@ class MessagesController < ApplicationController
   before_filter :require_login
 
   def index
-    @messages = Message.where("recipient_id = ?", current_user.id)
+    @messages = Message.where("recipient_id = ?", current_user.id).order('created_at desc')
+  end
+
+  def sent
+    @messages = Message.where("sender_id = ?", current_user.id).order('created_at desc')
   end
 
   def new
@@ -14,7 +18,7 @@ class MessagesController < ApplicationController
     @message = Message.create message_params.merge({sender_id: current_user.id})
     if @message.persisted?
       flash[:success] = "Message sent to #{@message.recipient.name}"
-      redirect_to messages_path
+      redirect_to sent_messages_path
     else
       flash.now[:error] = "Error #{@user.errors.full_messages.to_sentence}"
       render 'new'
@@ -23,9 +27,6 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.find_by(id:params[:id], recipient_id:current_user.id)
-    if @message.present?
-      @message.read_at = Time.now.strftime("%Y-%m-%d %H:%M:%S")
-    end
   end
 
   private

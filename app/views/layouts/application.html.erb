@@ -13,10 +13,24 @@
       <ul class="nav navbar-nav">
         <% if current_user %>
           <li class="nav-item">
-             <%= link_to "New Message", new_message_path, class: 'nav-link' %>
+             <%= link_to messages_path, class: 'nav-link' do %>
+              <i class="fa fa-envelope"></i> Inbox
+             <% end %>
           </li>
           <li class="nav-item">
-             <%= link_to "People", people_path, class: 'nav-link' %>
+             <%= link_to new_message_path, class: 'nav-link' do %>
+              <i class="fa fa-file-text-o"></i> New Message
+             <% end %>
+          </li>
+          <li class="nav-item">
+             <%= link_to sent_messages_path, class: 'nav-link' do %>
+              <i class="fa fa-paper-plane"></i> Sent
+             <% end %>
+          </li>
+          <li class="nav-item">
+             <%= link_to people_path, class: 'nav-link' do %>
+              <i class="fa fa-users"></i> People
+             <% end %>
           </li>
           <li class="nav-item pull-xs-right">
             Welcome, <%= current_user.to_s %>

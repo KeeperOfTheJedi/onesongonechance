@@ -13,7 +13,7 @@
         <tr>
           <td><%= user.name %></td>
           <td><%= user.updated_at.strftime("%Y %B %d, %l:%M%P") %></td>
-          <td><%= link_to 'Bye Bye', unfollow_path(user) %></td>
+          <td><%= link_to 'Bye Bye', unfollow_path(user), class: 'btn btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>
@@ -34,7 +34,7 @@
         <tr>
           <td><%= user.name %></td>
           <td><%= user.updated_at.strftime("%Y %B %d, %l:%M%P") %></td>
-          <td><%= link_to 'Follow', follow_path(user) %></td>
+          <td><%= link_to 'Follow', follow_path(user), class: 'btn btn-primary' %></td>
         </tr>
       <% end %>
     </tbody>

@@ -5,7 +5,16 @@
         <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
         <h2><%= @message.sender %> </h2>
         <p><%= @message.title %></p>
-        <p><%= @message.body %></p>
+        <p>
+          <% unless @message.read_it %>
+            <span class="label label-warning">
+              Read at: 
+              <%= @message.read_at.strftime("%Y %B %d, %l:%M%P") %>
+            </span>
+          <% else %>
+            <%= @message.body %>
+          <% end %>
+        </p>
       </div>
     </div>
   </div>
