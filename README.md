@@ -2,7 +2,7 @@
 
 OneSongOneChance is a Ruby on Rails website that help to find other people want to heard a same song with you
 
-Group 6: chipset508, jundalisay, khoinguyen91 olivernadj
+Group 6: *chipset508, jundalisay, khoinguyen91 olivernadj*
 
 URL: 
 
