@@ -38,6 +38,7 @@ URL:
 * [x] User can connect to chat with non-blocked people while listen same music
 * [x] User can filter for age/gender for connect result
 * [x] User can see the list of people who listening most songs in their playlist
+* [x] User can skip to next person if they don't like current matching
 
 ## Wireframes 
 ![alt text](/wireframe/homepage.png)
