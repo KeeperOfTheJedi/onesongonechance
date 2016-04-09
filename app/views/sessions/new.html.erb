@@ -1,0 +1,13 @@
+<h1>Log In</h1>
+
+<%= form_tag sessions_path, method: 'post' do %>
+  <fieldset class="form-group">
+    <%= label_tag :email %>
+    <%= text_field_tag :email, nil, class: "form-control" %>
+  </fieldset>
+  <fieldset class="form-group">
+    <%= label_tag :password %>
+    <%= password_field_tag :password, nil, class: "form-control" %>
+  </fieldset>
+  <%= submit_tag "Log In", class:"btn btn-primary" %>
+<% end %>
