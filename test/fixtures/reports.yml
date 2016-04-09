@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reporter_user_id: 1
+  blamed_user_id: 1
+  message: MyString
+
+two:
+  reporter_user_id: 1
+  blamed_user_id: 1
+  message: MyString

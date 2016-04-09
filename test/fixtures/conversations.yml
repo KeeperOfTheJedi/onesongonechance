@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Song_id: 
+  init_user_id: 1
+  partner_user_id: 1
+  exp_time: 2016-04-09 11:03:13
+
+two:
+  Song_id: 
+  init_user_id: 1
+  partner_user_id: 1
+  exp_time: 2016-04-09 11:03:13
