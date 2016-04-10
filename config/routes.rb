@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :users
+  resources :songs
   resources :sessions, only: [:new, :create] 
   delete 'logout' => 'sessions#destroy'
 

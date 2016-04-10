@@ -1,23 +1,19 @@
-# PostgreSQL. Versions 8.2 and up are supported.
 default: &default
   adapter: postgresql
   encoding: unicode
-  database: railsapp
+  database: osoc
   pool: 5
-  username: postgres
-  password:
-  host: db
 
 development:
   <<: *default
-  database: railsapp_development
+  database: osoc_development
 
 test:
   <<: *default
-  database: railsapp_test
+  database: osoc_test
 
 production:
   <<: *default
-  database: railsapp_production
-  username: railsapp
-  password: <%= ENV['RAILSAPP_DATABASE_PASSWORD'] %>
+  database: osoc_production
+  username: osoc
+  password: <%= ENV['OSOC_DATABASE_PASSWORD'] %>

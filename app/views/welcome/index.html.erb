@@ -1,7 +1,62 @@
-<div class="jumbotron jumbotron-fluid">
+<% if current_user.nil? %>
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+	    <h1 class="display-3">Welcome to One song one chance</h1>
+	    <p class="lead">This place you can find your friends or make friendship and of course chatting a lot, lot, lot..</p>
+	    <%= render 'users/form' %>
+	  </div>
+	</div>
+<% else %>
+
+
+
+
+
+<div class="jumbotron">
   <div class="container">
-    <h1 class="display-3">Welcome to One song one chance</h1>
-    <p class="lead">This place you can find your friends or make friendship and of course chatting a lot, lot, lot..</p>
-    <%= render 'users/form' %>
+    <h1>Share your videos with the world!</h1>
+    <p>Click the button below to share your video with Youtube.</p>
+    <p>
+      <%= link_to 'Add song now!', new_song_path, class: 'btn btn-primary btn-1' %>
+    </p
+
+    <div class="asd">
+    <%= form_tag("?search", method: "get",) do %>
+          <input type="text" class="form-control" name="search" id="search", placeholder="Enter search term...">
+          <%= submit_tag("Search", class: 'btn btn-primary')%>
+          <% end %>
+
+    </div>
   </div>
 </div>
+<% if @songs.any? %>
+  <div class = "container">
+  <h1>Latest videos</h1>
+  <div id="player-wrapper"></div>
+  <% @songs.in_groups_of(3) do |group| %>
+    <div class="row">
+    <% group.each do |video| %>
+      <% if video %>
+        <div class="col-md-4">
+        <div class="yt_video thumbnail">
+          <%= image_tag "https://img.youtube.com/vi/#{song.uid}/mqdefault.jpg", alt: video.title, class: 'yt_preview img-rounded', :"data-uid" => video.uid %>
+        <div class="caption">
+          <h5><%= video.title %></h5>
+	  <p>Author: <b><%= video.author %></b></p>
+	  <p>Duration: <br><%= video.duration %></b></p>
+          <p>
+            <span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <%= video.likes %>
+	    <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= video.dislikes %>
+	  </p>
+         </div>
+         </div>
+         </div>
+       <% end %>
+     <% end %>
+   </div>
+  <% end %>
+  </div>
+<% end %>
+
+
+<% end %>

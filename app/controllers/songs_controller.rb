@@ -1,4 +1,4 @@
-class WelcomeController < ApplicationController
+class SongsController < ApplicationController
 
   def index
     if params[:search]
@@ -17,13 +17,20 @@ class WelcomeController < ApplicationController
   end
 
   def create
-    @song = Song.new(params.require(:video).permit(:url))
+    # @song = Song.new(params.require(:song).permit(:url))
+    @song = Song.new(song_params)
     if @song.save
-      flash[:success] = 'Song added!'
-      redirect_to root_url
+      flash[:success] = 'Video added!'
+      redirect_to root_path
     else
       render 'new'
     end
+  end
+
+  private
+
+  def song_params
+    params.require(:song).permit(:url, :uid, :name)
   end
 
 end
