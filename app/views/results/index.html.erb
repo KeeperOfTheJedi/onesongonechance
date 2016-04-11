@@ -1,0 +1,44 @@
+<% if current_user.nil? %>
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-3">Welcome to One song one chance</h1>
+      <p class="lead">This place you can find your friends or make friendship and of course chatting a lot, lot, lot..</p>
+      <%= render 'users/form' %>
+    </div>
+  </div>
+
+<% else %>
+
+<h1>Youtube Search</h1>
+
+  <%= form_tag nil, method: 'get', class: 'form-inline', style: 'margin-bottom: 20px' do %>
+    <div class="form-group">
+      <%= text_field_tag :q, params[:q], class: 'form-control' %>
+      <%= submit_tag "Search", class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
+
+  <div class="col-sm-8">
+    <div id="youtube_video">
+      <% if params[:video_id] %>
+        <%= render 'video', video_id: params[:video_id] %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <% if @results.present? %>
+      <% @results.each do |result| %>
+        <% if result.video? %>
+          <%= image_tag result.default_thumbnail_url, width: result.default_thumbnail_url, height: result.default_thumbnail_height %></td>
+        <% end %>
+        <span class="label label-primary"><%= result.result_type %></span>
+          <%= link_to result.title, root_path(q: params[:q], video_id: result.video_id) %>
+          <%= result.description %>
+      <% end %>
+    <% else %>
+      <% end %>  
+  </div>
+
+<% end %>
