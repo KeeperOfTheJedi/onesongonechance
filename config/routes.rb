@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+
+
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
+
   resources :users
-  resources :sessions, only: [:new, :create] 
+  resources :sessions, only: [:create] 
   delete 'logout' => 'sessions#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
