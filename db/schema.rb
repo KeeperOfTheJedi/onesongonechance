@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(version: 20160409094334) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "results", force: :cascade do |t|
+    t.string   "query"
+    t.json     "raw"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "song_lists", force: :cascade do |t|
     t.integer  "song_id"
     t.integer  "user_id"
@@ -66,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160409094334) do
   create_table "songs", force: :cascade do |t|
     t.string   "name"
     t.string   "url"
+    t.string   "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

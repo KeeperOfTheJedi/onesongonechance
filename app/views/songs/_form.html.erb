@@ -1,0 +1,16 @@
+<div class ="container">
+		<%= simple_form_for(@song) do |f| %>
+		<%= f.error_notification %>
+  
+    <div class="form-group">
+      <%= f.label :link %>
+      <%= f.text_field :url, class: 'form-control', required: true %>
+      <span class="help-block">Enter the URL of the Youtube song:</span>
+    </div>
+    <%= f.submit class: 'btn btn=default' %>
+  <% end %>
+</div>
+
+
+
+

@@ -1,7 +1,8 @@
 //= require jquery
-//= require tether
-//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require chat_socket
+//= require tether
+//= require bootstrap-sprockets
+//= require results
+//= require_tree .
