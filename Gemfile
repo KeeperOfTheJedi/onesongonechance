@@ -38,6 +38,14 @@ gem 'rails_12factor', group: 'production'
 gem 'simple_form'
 gem "font-awesome-rails"
 
+gem 'puma'
+gem 'faye-websocket'#, require: ''faye/websocket'
+gem 'jquery-ui-rails'
+gem 'rails_12factor'
+gem "letter_opener", :group => :development
+gem 'maildown'
+gem 'rollbar', '~> 2.8', '>= 2.8.3'
+gem 'rack-mini-profiler', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

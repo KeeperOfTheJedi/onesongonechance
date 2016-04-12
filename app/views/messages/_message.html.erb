@@ -1,0 +1,18 @@
+<ul class="ChatLog">
+
+  <%= div_for message do %>
+  <% if message.sender_id == current_user.id %>
+  <li class="ChatLog__entry ChatLog__entry_mine">
+    <% else %>
+    <li class="ChatLog__entry">
+      <% end %>
+      <p class="ChatLog__message">
+        <%= message.content %>
+        <time class="ChatLog__timestamp">
+          <%= message.created_at.to_s(:time) %>
+        </time>
+      </p>
+    </li>
+
+    <% end %>
+  </ul>

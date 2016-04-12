@@ -1,0 +1,5 @@
+<% if @message.errors.empty? %>
+  var content = "<%= j render @message %>";
+  content = "<%= current_user %>" + "TKOJ" + content;
+  window.ws.send(JSON.stringify({content: content, event: 'message_create'}))
+<% end %>

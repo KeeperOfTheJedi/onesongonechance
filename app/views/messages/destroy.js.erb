@@ -1,0 +1,4 @@
+var content = "#<%= j dom_id @message %>";
+var obj = {content: content, event: 'message_delete'};
+console.log("sending ", obj);
+window.ws.send(JSON.stringify(obj));

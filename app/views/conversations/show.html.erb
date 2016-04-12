@@ -1,0 +1,33 @@
+<h1>Chat Room</h1>
+<div class="col-sm-8">
+<div class="chat-wrapper">
+
+  <div class="messages">
+    <%= render Message.last_five(params[:id]) %>
+  </div>
+</div>
+<div class="chatbox">
+ <% if current_user %>
+ <div class="currentuser"><%= current_user.email %></div>
+    <%= form_for Message.new, remote: true do |f| %>
+      <div class="input-group">
+        <%= f.text_field :content, class: 'form-control', autocomplete: "off", 'data-user' => current_user.email %>
+        <%= f.hidden_field  :conversation_id, :value => params[:id], class: 'form-control' %>
+        <div class="input-group-btn">
+          <%= f.submit "Send", class: 'btn btn-secondary' %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+  <% end %>
+  </div>
+</div>
+<div class="col-sm-4">
+<div class="video-container"><iframe src="http://www.youtube.com/embed/
+oHg5SJYRHA0?autoplay=1&cc_load_policy=1&fs=0" frameborder="0" allowfullscreen></iframe></div>
+<span id="time"></span> minutes!</div>
+</div>
+
+
+
+
