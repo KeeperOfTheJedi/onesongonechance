@@ -37,10 +37,10 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
     arel (6.0.3)
     autoprefixer-rails (6.3.6)
       execjs
-    bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap (4.0.0.alpha3)
@@ -76,6 +76,10 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     jwt (1.5.1)
+    koala (2.2.0)
+      addressable
+      faraday
+      multi_json
     libv8 (3.16.14.13)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -187,13 +191,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt (~> 3.1.7)
   bootstrap (~> 4.0.0.alpha3)
   byebug
   coffee-rails (~> 4.1.0)
   font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails
+  koala (~> 2.2)
   omniauth-facebook
   pg
   rails (= 4.2.0)
