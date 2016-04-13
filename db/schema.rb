@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409094334) do
+ActiveRecord::Schema.define(version: 20160413104817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,9 +30,10 @@ ActiveRecord::Schema.define(version: 20160409094334) do
     t.datetime "exp_time"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "songs_id"
   end
 
-  add_index "conversations", ["song_id"], name: "index_conversations_on_song_id", using: :btree
+  add_index "conversations", ["songs_id"], name: "index_conversations_on_songs_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "conversation_id"
@@ -52,23 +53,18 @@ ActiveRecord::Schema.define(version: 20160409094334) do
     t.datetime "updated_at",       null: false
   end
 
-  create_table "song_lists", force: :cascade do |t|
-    t.integer  "song_id"
+  create_table "songs", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  add_index "song_lists", ["song_id"], name: "index_song_lists_on_song_id", using: :btree
-  add_index "song_lists", ["user_id"], name: "index_song_lists_on_user_id", using: :btree
-
-  create_table "songs", force: :cascade do |t|
+    t.datetime "heart_beat"
     t.string   "name"
-    t.string   "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "length"
+    t.string   "utubeid"
   end
+
+  add_index "songs", ["user_id"], name: "index_songs_on_user_id", using: :btree
 
   create_table "user_pictures", force: :cascade do |t|
     t.integer  "user_id"
@@ -90,4 +86,7 @@ ActiveRecord::Schema.define(version: 20160409094334) do
     t.string   "provider"
   end
 
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "songs", "users"
+  add_foreign_key "user_pictures", "users"
 end
