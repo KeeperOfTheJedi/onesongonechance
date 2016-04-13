@@ -38,8 +38,7 @@ gem "font-awesome-rails"
 gem 'omniauth-facebook'
 gem "koala", "~> 2.2"
 
-
-
+gem 'google-api-client', '< 0.9'
 
 gem 'puma'
 gem 'faye-websocket'#, require: ''faye/websocket'

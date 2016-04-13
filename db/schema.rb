@@ -53,15 +53,34 @@ ActiveRecord::Schema.define(version: 20160413104817) do
     t.datetime "updated_at",       null: false
   end
 
+<<<<<<< HEAD
   create_table "songs", force: :cascade do |t|
+=======
+  create_table "results", force: :cascade do |t|
+    t.string   "query"
+    t.json     "raw"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "song_lists", force: :cascade do |t|
+    t.integer  "song_id"
+>>>>>>> master
     t.integer  "user_id"
     t.string   "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "heart_beat"
     t.string   "name"
+<<<<<<< HEAD
     t.integer  "length"
     t.string   "utubeid"
+=======
+    t.string   "url"
+    t.string   "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+>>>>>>> master
   end
 
   add_index "songs", ["user_id"], name: "index_songs_on_user_id", using: :btree
