@@ -4,43 +4,74 @@
 
 Group 6: **chipset508, jundalisay, khoinguyen91 olivernadj**
 
-URL: 
+URL: http://osoc.herokuapp.com/
+
+
+## Breakdown of work for each member:
+
+#### Oliver
+* [x] Facebook Login and Data Models
+
+#### Tu
+* [x] Chat Feature and Data Models
+
+#### Jun
+* [x] Youtube API and Heroku deployment
+
+#### Khoi 
+* [x] Homepage and Documentation
+
 
 ## User Stories
 
 #### Users
-* [x] User can sign up by providing their email, password, and name, mobile number and avatar 
-* [x] User can login using an email and password or login with Facebook
-* [x] User can create their own playlist
-* [x] User can edit their profile also their playlist
-* [x] User can set public/private for their profile
-* [x] User can send message to the other through username/email
-* [x] User can add friend or block the others
-* [x] User can get notification while another person listening same song.
-* [x] User can set status for chatting(Online/Idle/Busy...)
+* [x] User can login with Facebook
+* [ ] User can create their own playlist
+* [ ] User can edit their profile also their playlist
+* [ ] User can set public/private for their profile
+* [ ] User can send message to the other through username
+* [ ] User can add friends or block others
+* [ ] User can get notification while another person is listening to the same song.
+* [ ] User can set status for chatting(Online/Idle/Busy...)
 
 ### Messages
-* [x] User can send message to the other through username/email
-* [x] User can create group for group chatting
-* [x] User cannot receive message from blocked people
-* [x] Message can add emoticon and reaction to message
-* [x] User can break or enlarge the conversion 
+* [ ] User can send messages via username
+* [ ] User can create group for group chatting
+* [ ] User cannot receive message from blocked people
+* [ ] Message can add emoticon and reaction to message
+* [ ] User can break or enlarge the conversion 
 * [x] User can see the chatbox for all people who listening same song
 
 ### Songs
-* [x] User can add the emotion (tag) for a song
-* [x] User can listen random song from playlist or default
-* [x] User can search song by category/singer
-* [x] User can suggest new song for current friend
-* [x] User can see how many people listening same song
+* [ ] User can add the emotion (tag) for a song
+* [ ] User can listen random song from playlist or default
+* [x] User can search song by title
+* [ ] User can suggest new song for current friend
+* [ ] User can see how many people listening same song
 
 ### Friends connect
-* [x] User can connect to chat with non-blocked people while listen same music
-* [x] User can filter for age/gender for connect result
-* [x] User can see the list of people who listening most songs in their playlist
-* [x] User can skip to next person if they don't like current matching
+* [ ] User can connect to chat with non-blocked people while listen same music
+* [ ] User can filter for age/gender for connect result
+* [ ] User can see the list of people who listening most songs in their playlist
+* [ ] User can skip to next person if they don't like current matching
 
-## Wireframes 
+## Screencaps
+
+> User can search for songs and start a conversation
+![alt text](/searchvid.gif) 
+
+
+> User can login via FB
+![alt text](/loginwithfb.gif) 
+
+
+> User can chat after logging in
+![alt text](/chat.gif) 
+
+
+
+## Wireframes
+
 ![alt text](/wireframe/homepage.png)
 ![alt text](/wireframe/signup.png)
 ![alt text](/wireframe/profile.png)
