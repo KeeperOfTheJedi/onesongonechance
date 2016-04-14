@@ -4,7 +4,23 @@
 
 Group 6: **chipset508, jundalisay, khoinguyen91 olivernadj**
 
-URL: 
+URL: http://osoc.herokuapp.com/
+
+
+## Breakdown of work for each member:
+
+#### Oliver
+* [x] Facebook Login and Data Models
+
+#### Tu
+* [x] Chat Feature and Data Models
+
+#### Jun
+* [x] Youtube API and Heroku deployment
+
+#### Khoi 
+* [x] Homepage and Documentation
+
 
 ## User Stories
 
