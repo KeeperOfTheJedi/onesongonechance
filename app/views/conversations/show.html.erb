@@ -6,7 +6,7 @@
       <%= submit_tag "Search", class: 'btn btn-secondary' %>
     <% end %>
   </div>
-
+<% if @check_user_in_conversation %>
 <div class="col-sm-12">
   <div class="col-sm-8">
     <h1>Chat Room</h1>  
@@ -39,6 +39,11 @@
     oHg5SJYRHA0?autoplay=1&cc_load_policy=1&fs=0" frameborder="0" allowfullscreen></iframe></div>
     -->
     <span id="time"></span> minutes!</div>
+    <% else %>
+    DONT HAVE PERMISSION 
+    <% end %>
+</div>
+
 
     Video Is Supposed To Show Here
     <div id="youtube_video">

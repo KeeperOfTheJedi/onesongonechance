@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413104817) do
+ActiveRecord::Schema.define(version: 20160414080146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,16 +24,12 @@ ActiveRecord::Schema.define(version: 20160413104817) do
   end
 
   create_table "conversations", force: :cascade do |t|
-    t.integer  "song_id"
-    t.integer  "init_user_id"
-    t.integer  "partner_user_id"
+    t.integer  "init_user_song_id"
+    t.integer  "partner_user_song_id"
     t.datetime "exp_time"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "songs_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
-
-  add_index "conversations", ["songs_id"], name: "index_conversations_on_songs_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "conversation_id"
@@ -53,9 +49,6 @@ ActiveRecord::Schema.define(version: 20160413104817) do
     t.datetime "updated_at",       null: false
   end
 
-<<<<<<< HEAD
-  create_table "songs", force: :cascade do |t|
-=======
   create_table "results", force: :cascade do |t|
     t.string   "query"
     t.json     "raw"
@@ -63,24 +56,15 @@ ActiveRecord::Schema.define(version: 20160413104817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "song_lists", force: :cascade do |t|
-    t.integer  "song_id"
->>>>>>> master
+  create_table "songs", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "type"
+    t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "heart_beat"
     t.string   "name"
-<<<<<<< HEAD
     t.integer  "length"
     t.string   "utubeid"
-=======
-    t.string   "url"
-    t.string   "uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
->>>>>>> master
   end
 
   add_index "songs", ["user_id"], name: "index_songs_on_user_id", using: :btree
@@ -105,7 +89,4 @@ ActiveRecord::Schema.define(version: 20160413104817) do
     t.string   "provider"
   end
 
-  add_foreign_key "messages", "conversations"
-  add_foreign_key "songs", "users"
-  add_foreign_key "user_pictures", "users"
 end
