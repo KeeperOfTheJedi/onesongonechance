@@ -59,10 +59,16 @@ URL: http://osoc.herokuapp.com/
 
 > User can search for songs and start a conversation
 ![alt text](/searchvid.gif) 
+
+
 > User can login via FB
 ![alt text](/loginwithfb.gif) 
+
+
 > User can chat after logging in
 ![alt text](/chat.gif) 
+
+
 
 ## Wireframes
 
