@@ -1,0 +1,58 @@
+
+<div class="container profile">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="profile-header" style="background:#000 url('<%= current_user.cover %>') center center no-repeat;">
+          <img src="<%= current_user.image %>" alt="<%= current_user.to_s %>" class="profile-img">
+          <div class="profile-location">
+            <small><i class="fa fa-map-marker"></i> <%= current_user.location %></small>
+          </div>
+        </div>
+        <div class="card-block">
+          <h4 class="card-title profile-name"><%= current_user.to_s %></h4>
+        </div>
+        <ul id="accordion" class="accordion">
+          <li class="default open">
+            <div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+              <li>
+                <p><i class="fa fa-star"></i><%= current_user.bio %></p>
+              </li>
+              <li>
+                <p><i class="fa fa-map-marker"></i><%= current_user.location %></p>
+              </li>
+              <li>
+                <p><i class="fa fa-language"></i><%= current_user.languages %></p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div class="link"><i class="fa fa-picture-o"></i>Photos<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+              <li>
+                  <p>hello bello</p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div class="link"><i class="fa fa-music"></i>Favorite bands<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+              <li>
+                  <p>hello bello</p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div class="link"><i class="fa fa-users"></i>Friends<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+              <li>
+                  <a>hello bello</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+

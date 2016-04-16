@@ -5,18 +5,23 @@ class User < ActiveRecord::Base
     name
   end
   def self.from_omniauth(auth)
-    # @graph = Koala::Facebook::API.new(auth.credentials.token)
-    # profile = @graph.get_object("me")
-    # friends = @graph.get_connections("me", "friends")
-    # raise friends
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.provider = auth.provider 
-      user.uid      = auth.uid
-      user.name     = auth.info.name
-      user.email     = auth.info.email
-      user.oauth_token = auth.credentials.token
-      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-      user.save
-    end
+    user = find_or_initialize_by(provider: auth.provider, uid: auth.uid)
+    user.name     = auth.info.name
+    user.email     = auth.info.email
+    user.image     = auth.info.image
+    user.oauth_token = auth.credentials.token
+    user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+    # if user.new_record?
+      graph = Koala::Facebook::API.new(auth.credentials.token)
+      profile = graph.get_object("me?fields=id,location,gender,languages,relationship_status,bio,cover")
+      raise "Something wrong with facebook profile information" unless auth.uid == profile['id']
+      user.gender = profile['gender'] if profile['gender'].present?
+      user.location = profile['location']['name'] if profile['location'].present?
+      user.languages = profile['languages'].map{|l| l['name']}.join(', ') if profile['languages'].present?
+      user.bio = profile['bio'] if profile['bio'].present?
+      user.cover = profile['cover']['source'] if profile['cover'].present?
+    # end
+    user.save
+    return user
   end
 end
