@@ -14,8 +14,9 @@
         <% if current_user %>
           <li class="nav-item pull-xs-right">
             Welcome, <%= current_user.to_s %>
-            <%= link_to "Logout", logout_path, data: { confirm: 'Are you sure?' }, method: 'delete'%>
-            
+            <%= link_to logout_path, data: { confirm: 'Are you sure?' }, method: 'delete' do %>
+              <i class="fa fa-power-off"></i>
+            <% end %>
           </li>
         <% else %>
           <li class="nav-item">
