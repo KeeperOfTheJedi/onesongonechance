@@ -13,12 +13,31 @@
       <ul class="nav navbar-nav">
         <% if current_user %>
           <li class="nav-item pull-xs-right">
-            Welcome, <%= current_user.to_s %>
-            <%= link_to "Logout", logout_path, data: { confirm: 'Are you sure?' }, method: 'delete'%>
-            
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.to_s %>
+              </button>
+              <div class="dropdown-menu">
+                <%= link_to my_profile_path, class: 'dropdown-item' do %>
+                  <i class="fa fa-user"></i> My Profile
+                <% end %>
+                <div class="dropdown-divider"></div>
+                <%= link_to root_path, class: 'dropdown-item' do %>
+                  <i class="fa fa-picture-o"></i> Photos
+                <% end %>
+                <div class="dropdown-divider"></div>
+                <%= link_to root_path, class: 'dropdown-item' do %>
+                  <strike><i class="fa fa-pencil-square-o"></i> Edit Profile</strike>
+                <% end %>
+                <div class="dropdown-divider"></div>
+                <%= link_to logout_path, data: { confirm: 'Are you sure?' }, method: 'delete', class: 'dropdown-item' do %>
+                  <i class="fa fa-power-off"></i> Log out
+                <% end %>
+              </div>
+            </div>
           </li>
         <% else %>
-          <li class="nav-item">
+          <li class="nav-item pull-xs-right">
             <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'nav-link' %>
           </li>
         <% end %>

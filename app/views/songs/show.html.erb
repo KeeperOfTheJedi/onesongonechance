@@ -24,7 +24,7 @@
         <% end %>
         <span class="label label-primary"><%= result.result_type %></span>
           <!-- <%= link_to result.title, root_path(q: params[:q], video_id: result.video_id) %> -->
-          <%= link_to result.title, {:controller => "songs", :action => "create", :user_id => current_user.id, video_id: result.video_id, gender: current_user.gender}, method: :post %>
+          <%= link_to result.title, {:controller => "songs", :action => "create", :user_id => current_user.id}, method: :post %> <!-- , video_id: result.video_id, gender: current_user.gender -->
           <%= result.description %>
       <% end %>
     <% else %>
