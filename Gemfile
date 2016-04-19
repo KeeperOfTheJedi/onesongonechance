@@ -22,7 +22,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+gem 'dotenv-rails', :groups => [:development, :test, :production]
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -35,7 +35,8 @@ gem 'redcarpet'
 gem 'rails_12factor', group: 'production'
 gem 'simple_form'
 gem "font-awesome-rails"
-gem 'omniauth-facebook'
+  gem 'omniauth'
+  gem 'omniauth-facebook', '~> 3.0.0'
 gem "koala", "~> 2.2"
 
 gem 'google-api-client', '< 0.9'

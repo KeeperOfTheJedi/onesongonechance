@@ -74,7 +74,7 @@ ul.ChatLog {
   bottom: .6em;
   left: auto;
   border: 6px solid transparent;
-  border-left-color: #08f;
+  border-left-color: #2DBE60;
 }
 
 .ChatLog__message {
@@ -86,9 +86,9 @@ ul.ChatLog {
 }
 
 .ChatLog__entry.ChatLog__entry_mine .ChatLog__message {
-  border-top: 1px solid #07f;
-  border-bottom: 1px solid #07f;
-  background-color: #08f;
+  border-top: 1px solid #2DBE60;
+  border-bottom: 1px solid #2DBE60;
+  background-color: #2DBE60;
   color: #fff;
 }
 
