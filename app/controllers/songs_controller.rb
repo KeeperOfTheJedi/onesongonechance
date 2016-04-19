@@ -30,6 +30,18 @@ class SongsController < ApplicationController
 
 	end
 	
+  def index
+    if params[:search]
+      @songs = Song.where(
+       "lower(url) LIKE lower(?)",
+       "%#{Regexp.escape(params[:search])}%")
+      render 'index'
+    else
+      @songs = Song.order('created_at DESC')
+      render 'index'
+    end
+  end
+
 	def new
 		@song = Song.new
 	end
@@ -56,5 +68,4 @@ class SongsController < ApplicationController
       params.permit(:user_id)#, :video_id, :gender)# :title, :status, , :gender, :pref 
   end
   
-end
 end
