@@ -1,0 +1,27 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <a href="<%= url_for my_profile_path(section:'picture') %>" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </a>
+      <h4 class="modal-title" id="myModalLabel">Cheese a photo</h4>
+    </div>
+    <div class="modal-body">
+      <img src="<%= @photo['images'].first['source'].html_safe %>" style="display: block; margin: auto;  max-width: 100%;">
+    </div>
+    <div class="modal-footer">
+      <%= link_to edit_user_picture_path(@user_picture), class: 'btn btn-secondary' do %>
+        <i class="fa fa-fast-backward" aria-hidden="true"></i> Other album
+      <% end %>
+      <%= link_to user_pictures_choosing_path(@user_picture, @photo['album']['id']), class: 'btn btn-secondary' do %>
+        <i class="fa fa-step-backward" aria-hidden="true"></i> Other photos
+      <% end %>
+      <%= link_to user_picture_path(:photo_id=>@photo['id']), method: 'patch', class: 'btn btn-primary' do %>
+        Save <i class="fa fa-check" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to user_picture_path(:photo_id=>@photo['id']), method: 'delete', class: 'btn btn-danger' do %>
+        Detach <i class="fa fa-times" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

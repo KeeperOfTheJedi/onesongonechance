@@ -1,5 +1,5 @@
 class UserPicturesController < ApplicationController
-  before_action :set_user_picture, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_picture, only: [:show, :edit, :update, :destroy, :choosing, :pick]
 
   # GET /user_pictures
   # GET /user_pictures.json
@@ -22,49 +22,38 @@ class UserPicturesController < ApplicationController
     @albums = current_user.fb_albums
   end
 
-    # GET /user_pictures_choose/1/970813166333212
-  def choose
+  # GET /user_pictures_choosing/1/970813166333212
+  def choosing
     @photos = current_user.fb_photos(params[:album_id])
   end
 
-  # POST /user_pictures
-  # POST /user_pictures.json
-  def create
-    @user_picture = UserPicture.new(user_picture_params)
-
-    respond_to do |format|
-      if @user_picture.save
-        format.html { redirect_to @user_picture, notice: 'User picture was successfully created.' }
-        format.json { render :show, status: :created, location: @user_picture }
-      else
-        format.html { render :new }
-        format.json { render json: @user_picture.errors, status: :unprocessable_entity }
-      end
-    end
+  # GET /user_pictures_pick/1/970813166333212
+  def pick
+    @photo = current_user.fb_photo(params[:photo_id])
   end
+
 
   # PATCH/PUT /user_pictures/1
   # PATCH/PUT /user_pictures/1.json
   def update
-    respond_to do |format|
-      if @user_picture.update(user_picture_params)
-        format.html { redirect_to @user_picture, notice: 'User picture was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user_picture }
-      else
-        format.html { render :edit }
-        format.json { render json: @user_picture.errors, status: :unprocessable_entity }
-      end
+    @photo = current_user.fb_photo(params[:photo_id])
+    if @user_picture.update(:picture_metas => @photo)
+      flash[:success] = "The chosen picture has been added to your profile"
+    else
+      flash[:success] = "Somewhere something went wrong. Sorry!"
     end
+    redirect_to my_profile_path(section: 'picture')
   end
 
   # DELETE /user_pictures/1
   # DELETE /user_pictures/1.json
   def destroy
-    @user_picture.destroy
-    respond_to do |format|
-      format.html { redirect_to user_pictures_url, notice: 'User picture was successfully destroyed.' }
-      format.json { head :no_content }
+    if @user_picture.update(:picture_metas => nil)
+      flash[:success] = "The chosen picture has been detached from your profile"
+    else
+      flash[:success] = "Somewhere something went wrong. Sorry!"
     end
+    redirect_to my_profile_path(section: 'picture')
   end
 
   private

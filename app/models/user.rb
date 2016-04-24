@@ -23,7 +23,9 @@ class User < ActiveRecord::Base
       user.cover = profile['cover']['source'] if profile['cover'].present?
       user.save
       (1..6).each do |i| #the easiest way to keep the images order if we create the list at the begin
-        UserPicture.find_or_initialize_by(:user_id => user.id, :order => i).save()
+        photo = UserPicture.find_or_initialize_by(:user_id => user.id, :order => i)
+        photo.picture_metas = nil
+        photo.save
       end
     end
     user.save
@@ -32,10 +34,31 @@ class User < ActiveRecord::Base
   def fb_albums
     graph = Koala::Facebook::API.new(self.oauth_token)
     albums = graph.get_object("#{self.uid}?fields=id,photos.limit(1){picture},albums.limit(100){name, photos.limit(1){name,picture}}")
-    album_list = [albums['photos']['data'][0].merge({'name'=>'Photos of You'})]
+    #raise albums
+    # album_list = [albums['photos']['data'][0].merge({'name'=>'Photos of You'})]
+    album_list = [{'name'=>'Photos of You', 'picture' => albums['photos']['data'][0]['picture'], 'id' => albums['id']}]
     albums['albums']['data'].map{|a| {'name' => a['name'], 'picture' => a['photos']['data'][0]['picture'], 'id' => a['id']}}.each do |album|
       album_list.push(album)
     end
     album_list
+  end
+  def fb_photos(album_id)
+    graph = Koala::Facebook::API.new(self.oauth_token)
+    photos = graph.get_object("#{album_id}?fields=id,photos.limit(1000){picture,name}")
+    photos['photos']['data']
+  end
+  def fb_photo(photo_id)
+    graph = Koala::Facebook::API.new(self.oauth_token)
+    photo = graph.get_object("#{photo_id}?fields=id,images,album,picture,name")
+  end
+  def fb_music
+    graph = Koala::Facebook::API.new(self.oauth_token)
+    music = graph.get_object("#{self.uid}?fields=id,music")
+    music['music']['data'] if music['music'].present?
+  end
+  def fb_friends
+    graph = Koala::Facebook::API.new(self.oauth_token)
+    friends = graph.get_object("#{self.uid}?fields=id,friends.limit(1000){name,picture}")
+    friends['friends']['data'] if friends['friends'].present?
   end
 end
