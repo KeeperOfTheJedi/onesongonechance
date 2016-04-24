@@ -18,3 +18,19 @@ $(document).on('page:change', function(event) {
   } 
   var accordion = new Accordion($('#accordion'), false);
 });
+
+//<a href="<%= url_for(my_profile_choose_pic_path) %>" data-load-remote="<%= url_for(my_profile_choose_pic_path) %>" data-toggle="modal">
+$(document).on('page:change', function(event) {
+  $('[data-toggle="modal"]').click(function(e) {
+    e.preventDefault();
+    var $this = $(this);
+    // console.log($this)
+    var remote = $this.data('load-remote');
+    if (remote) {
+      // console.log(remote)
+      $.get(remote, function(data) {
+        $('<div class="modal fade">' + data + '</div>').modal();
+      });
+    }
+  });
+});

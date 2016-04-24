@@ -34,8 +34,8 @@ gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'redcarpet'
 gem 'simple_form'
 gem "font-awesome-rails"
-  gem 'omniauth'
-  gem 'omniauth-facebook', '~> 3.0.0'
+gem 'omniauth'
+gem 'omniauth-facebook', '~> 3.0.0'
 gem "koala", "~> 2.2"
 
 gem 'google-api-client', '< 0.9'

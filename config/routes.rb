@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :messages
   resources :sessions, only: [:create] 
   get '/my_profile' => 'users#my_profile'
+  get '/my_profile_choose_pic' => 'users#my_profile_choose_pic'
+  resources :user_pictures
 
   delete 'logout' => 'sessions#destroy'
   get '/conversations/:id', to: 'conversations#show'

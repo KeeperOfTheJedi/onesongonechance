@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
     return @current_user if @current_user 
     if session[:user_id]
       @current_user = User.find session[:user_id]
+      unless Time.at(@current_user.oauth_expires_at) > Time.now
+        session[:user_id] = nil
+        flash[:success] = "Your session is expired"
+        redirect_to root_path
+      end
+      @current_user
     end
   end
 end
