@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
     #raise albums
     # album_list = [albums['photos']['data'][0].merge({'name'=>'Photos of You'})]
     album_list = [{'name'=>'Photos of You', 'picture' => albums['photos']['data'][0]['picture'], 'id' => albums['id']}]
-    albums['albums']['data'].map{|a| {'name' => a['name'], 'picture' => a['photos']['data'][0]['picture'], 'id' => a['id']}}.each do |album|
+    albums['albums']['data'].select{|a| a['photos'].present?}.map{|a| {'name' => a['name'], 'picture' => a['photos']['data'][0]['picture'], 'id' => a['id']}}.each do |album|
       album_list.push(album)
     end
     album_list
