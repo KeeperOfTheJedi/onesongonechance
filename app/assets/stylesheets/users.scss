@@ -110,3 +110,48 @@
 }
 
 
+.profile-photos {
+    padding: 10px 9px 4px 35px;
+    a {
+      background: #fff;
+      width: 60px; 
+      height: 60px; 
+      border-radius: 50%; 
+      display: inline-block;
+      padding: 0px;
+    }
+    .profile-photos-overflow {
+      margin:2px; 
+      border-radius: 50%; 
+      overflow: hidden;
+      width: 56px;
+      height: 56px;
+      background-color: #ccc;
+    }
+    .prof-img-list {
+      display: block;
+      height: auto;
+      max-height: 125%;
+      max-width: 150%;
+      margin: auto;
+    }
+    .prof-img-list-new {
+      filter: grayscale(100%) blur(1px);
+    }
+}
+
+
+a.list-group-item {
+  background: #444359;
+  color: #d9d9d9;
+  .list-group-item-heading {
+    color: #d9d9d9;
+  }
+}
+a.list-group-item:hover {
+  background: #b63b4d;
+  color: #FFF;
+  .list-group-item-heading {
+    color: #FFF;
+  }
+}

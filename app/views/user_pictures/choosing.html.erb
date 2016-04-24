@@ -1,0 +1,28 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <a href="<%= url_for my_profile_path(section:'picture') %>" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </a>
+      <h4 class="modal-title" id="myModalLabel">Cheese a photo</h4>
+    </div>
+    <div class="modal-body">
+      <ul class="submenu" style="display: block;">
+        <li class="profile-photos">
+          <% @photos.each do |photo| %>
+            <a href="<%= url_for user_pictures_pick_path(@user_picture, photo['id']) %>" class="prof-img-list-frame">
+              <div class="profile-photos-overflow">
+                <img src="<%=photo['picture']%>" class="prof-img-list">
+              </div>
+            </a>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <%= link_to edit_user_picture_path(@user_picture), class: 'btn btn-secondary' do %>
+        <i class="fa fa-fast-backward" aria-hidden="true"></i> Other album
+      <% end %>
+    </div>
+  </div>
+</div>

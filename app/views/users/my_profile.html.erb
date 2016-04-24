@@ -12,7 +12,7 @@
           <h4 class="card-title profile-name"><%= current_user.to_s %></h4>
         </div>
         <ul id="accordion" class="accordion">
-          <li class="default open">
+          <li class="<%= "default open" if @section == 'globe' %>">
             <div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
               <li>
@@ -26,27 +26,50 @@
               </li>
             </ul>
           </li>
-          <li>
+          <li class="<%= "default open" if @section == 'picture' %>">
             <div class="link"><i class="fa fa-picture-o"></i>Photos<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li>
-                  <p>hello bello</p>
+              <li class="profile-photos">
+                <% current_user.user_pictures.each do |picture| %>
+                  <% if picture.empty %>
+                    <a href="<%= url_for(edit_user_picture_path(picture)) %>" data-load-remote="<%= url_for(edit_user_picture_path(picture)) %>" data-toggle="modal" class="prof-img-list-frame">
+                      <div class="profile-photos-overflow">
+                        <i class="fa fa-plus" style="z-index: 1; color: #fff; padding-left: 10px; padding-top: 4px;"></i>
+                        <img src="<%= current_user.image %>" class="prof-img-list prof-img-list-new">
+                      </div>
+                    </a>
+                  <% else %>
+                    <a href="<%= url_for(user_pictures_pick_path(picture, picture.picture_metas['id'])) %>" class="prof-img-list-frame">
+                      <div class="profile-photos-overflow">
+                        <img src="<%= picture.picture %>" class="prof-img-list">
+                      </div>
+                    </a>
+                  <% end %>
+                <% end %>
               </li>
             </ul>
           </li>
-          <li>
+          <li class="<%= "default open" if @section == 'music' %>">
             <div class="link"><i class="fa fa-music"></i>Favorite bands<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li>
-                  <p>hello bello</p>
-              </li>
+              <% current_user.fb_music.each do |music| %>
+                <li>
+                    <a><%= music['name'] %></a>
+                </li>
+              <% end %>
             </ul>
           </li>
-          <li>
+          <li class="<%= "default open" if @section == 'friends' %>">
             <div class="link"><i class="fa fa-users"></i>Friends<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li>
-                  <a>hello bello</a>
+              <li class="profile-photos">
+              <% current_user.fb_friends.each do |frend| %>
+                  <a  class="prof-img-list-frame">
+                    <div class="profile-photos-overflow">
+                      <img src="<%= frend['picture']['data']['url'] %>" class="prof-img-list">
+                    </div>
+                  </a>
+                <% end %>
               </li>
             </ul>
           </li>

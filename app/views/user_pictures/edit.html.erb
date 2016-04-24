@@ -1,0 +1,19 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <a href="<%= url_for my_profile_path(section:'picture') %>" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </a>
+      <h4 class="modal-title" id="myModalLabel">Choose an album</h4>
+    </div>
+    <div class="modal-body">
+      <div class="list-group">
+        <% @albums.each do |album| %>
+          <a href="<%= url_for user_pictures_choosing_path(@user_picture, album['id']) %>" class="list-group-item">
+            <%=album['name']%>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,16 +18,12 @@
                 <%= current_user.to_s %>
               </button>
               <div class="dropdown-menu">
-                <%= link_to my_profile_path, class: 'dropdown-item' do %>
+                <%= link_to my_profile_path(section: 'globe'), class: 'dropdown-item' do %>
                   <i class="fa fa-user"></i> My Profile
                 <% end %>
                 <div class="dropdown-divider"></div>
-                <%= link_to root_path, class: 'dropdown-item' do %>
+                <%= link_to my_profile_path(section: 'picture'), class: 'dropdown-item' do %>
                   <i class="fa fa-picture-o"></i> Photos
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <%= link_to root_path, class: 'dropdown-item' do %>
-                  <strike><i class="fa fa-pencil-square-o"></i> Edit Profile</strike>
                 <% end %>
                 <div class="dropdown-divider"></div>
                 <%= link_to logout_path, data: { confirm: 'Are you sure?' }, method: 'delete', class: 'dropdown-item' do %>
