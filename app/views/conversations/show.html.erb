@@ -2,7 +2,7 @@
 <% if @check_user_in_conversation %>
 
 <div class="row">
-  <div class="profileinfo col-sm-5">
+  <div class="profileinfo col-sm-6">
     <div class="profile_picture col-sm-2">
      <%= link_to image_tag('https://graph.facebook.com/' + @partner.uid + '/picture?width=200', class: "card-img-top img-circle profile-image", size: "70", :crop => :fill,class: "img-circle profile-image"), root_path() %> 
    </div>
@@ -12,58 +12,130 @@
    </div>
 
  </div>
- <div class="col-sm-3">
-  <br>
-  <%= link_to '<i class="fa fa-times"></i> Exit'.html_safe, root_path, :class =>'btn btn-danger btn-sm pull-right',placeholder: "placeholder text" %>
-  <%= link_to '<i class="fa fa-chevron-right"></i> Next'.html_safe, root_path, :class =>'btn btn-success btn-sm pull-right',placeholder: "placeholder text" %>
+ <div class="col-sm-6">
+   <br>
+   <h2 class="btn-toolbar ">
+    <a type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal_add_song"><i class="fa fa-plus" aria-hidden="true"></i> Song</a>  &nbsp;
+    <%= link_to '<i class="fa fa-times"></i> Exit'.html_safe, {:controller => "songs", :action => "exit", :id => @song.id }, method: :post, :class => 'btn btn-danger pull-right' %>  &nbsp;
+
+
+    <%= link_to '<i class="fa fa-chevron-right"></i> Next'.html_safe, {:controller => "songs", :action => "create", :user_id => current_user.id, name: @song.name, utubeid: @song.utubeid, length: 100}, method: :post, :class => 'btn btn-success pull-right' %>  &nbsp;
+  </h2>
 </div>
 </div>
 <br>
-<div class="col-sm-8">
-<%= link_to "test ping song", pingsong_path(), :method=> :post %>
-  <br\>
-  <div class="chat-wrapper">
-    <div class="messages">
-      <%= render Message.last_five(params[:id]) %>
-    </div>
-  </div>
-
-  <div class="chatbox">
-    <% if current_user %>
-    <div class="currentuser"><%= current_user.email %></div>
-    <%= form_for Message.new, remote: true do |f| %>
-    <div class="input-group">
-      <%= f.text_field :content, class: 'form-control', autocomplete: "off", 'data-user' => current_user.email %>
-      <%= f.hidden_field  :conversation_id, :value => params[:id], class: 'form-control' %>
-      <div class="input-group-btn">
-        <%= f.submit "Send", class: 'btn btn-secondary' %>
+<div class="row">
+  <div class="col-sm-8">
+    <br\>
+    <div class="chat-wrapper">
+      <div class="messages">
+        <%= render Message.last_five(params[:id]) %>
       </div>
     </div>
-    <% end %>
+
+    <div class="chatbox">
+      <% if current_user %>
+      <div class="currentuser"><%= current_user.email %></div>
+      <%= form_for Message.new, remote: true do |f| %>
+      <div class="input-group">
+        <%= f.text_field :content, class: 'form-control', autocomplete: "off", 'data-user' => current_user.email %>
+        <%= f.hidden_field  :conversation_id, :value => params[:id], class: 'form-control' %>
+        <div class="input-group-btn">
+          <%= f.submit "Send", class: 'btn btn-secondary' %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <% else %>
+    <% end %>  
   </div>
-  <% else %>
-  <% end %>  
+  <div class="col-sm-4">
+    <div class="row">
+
+      <% @videourl = "http://www.youtube.com/embed/" + @conversation.init_user_song.utubeid + "?autoplay=1&cc_load_policy=1&fs=0" %>
+      <div class="video-container"><iframe id='iframe_video' src= <%= @videourl %> + frameborder="0" allowfullscreen></iframe>
+
+        <script type="text/javascript">
+          var secondsCountDown = <%= @song.length + 10%>
+          display = document.querySelector('#time');
+          var converid = $("#current_song").text();
+
+          pingsong(secondsCountDown, display, "conversation", converid);
+        </script>
+      </div>
+      Time left: <span id="time"></span>
+    </div>
+    <div class="row songlist"></div>
+  </div>
+</div>
+<% else %>
+DONT HAVE PERMISSION 
+<% end %>
 </div>
 
-<div class="col-sm-4">
-Time left: <span id="time"></span>
-  <% @videourl = "http://www.youtube.com/embed/" + @conversation.init_user_song.utubeid + "?autoplay=1&cc_load_policy=1&fs=0" %>
-  <div class="video-container"><iframe src= <%= @videourl %> + frameborder="0" allowfullscreen></iframe></div>
-<script type="text/javascript">
-  var secondsCountDown = <%= @song.length + 10%>
-        display = document.querySelector('#time');
-    startTimer(secondsCountDown, display);
-</script>
-  </div>
-  <% else %>
-  DONT HAVE PERMISSION 
-  <% end %>
-</div>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="http://www.jacklmoore.com/colorbox/jquery.colorbox.js"></script>
-    
-  </body>
+</body>
 </html>
 
 <br>
+
+<!-- Modal -->
+<div id="modal_add_song" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Song</h4>
+        <form id="yourForm">
+          <div class="input-group">
+            <input id="tbsearch" type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+              <a href="#" onclick="searchsong()" class="btn btn-secondary">Search</a>
+
+            </span>
+          </div>
+        </form>       
+
+      </div>
+      <div class="modal-body modal-add-song">
+        <center><img id="loadinggif" style="display:none;" src="http://i.giphy.com/xT1XGVRQp2PLft5uz6.gif"></center>
+        <div class="search-result"></div>
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+<script type="text/javascript">
+  function searchsong()
+  {
+    query = $('#tbsearch').val();
+    $('.search-result').html("");
+    $.post( "/searchsong.json?q=" + query, function( data ) {
+      if (data.html != "")
+      {
+
+        var user_join =  data.html;
+
+        $('.search-result').html(user_join);
+
+
+      }
+    });
+  }
+  function add_song_to_list(id)
+  {
+         alert(id);
+  }
+  $('#yourForm').submit(function(event){
+    $("#loadinggif").css("display", "block");
+
+  // prevent default browser behaviour
+  event.preventDefault();
+  searchsong();
+
+  $("#loadinggif").css("display", "none");
+});
+</script>

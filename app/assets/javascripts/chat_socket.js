@@ -29,8 +29,10 @@ window.ws.onmessage = function(message) {
 };
 
 setupForm = function() {
+  console.log("setupForm");
   $("form#new_message").on('ajax:success', function(event, data, success, xhr) {
-    return $('input#message_content').val('');
+    console.log("ajax success");
+    $('input#message_content').val('');
   }).on('ajax:error', function(event, xhr, status, error) {
     return alert("Couldn't send the message. Try again later.");
   });

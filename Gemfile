@@ -48,6 +48,7 @@ gem "letter_opener", :group => :development
 gem 'maildown'
 gem 'rollbar', '~> 2.8', '>= 2.8.3'
 gem 'rack-mini-profiler', require: false
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

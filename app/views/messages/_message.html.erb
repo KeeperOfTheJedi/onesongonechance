@@ -7,9 +7,9 @@
     <li class="ChatLog__entry">
       <% end %>
       <p class="ChatLog__message">
-        <%= message.content %>
+        <%=  Message.handling_emotion(message.content).html_safe %>
         <time class="ChatLog__timestamp">
-          <%= message.created_at.to_s(:time) %>
+          <%= message.created_at.localtime.to_s(:time) %>
         </time>
       </p>
     </li>

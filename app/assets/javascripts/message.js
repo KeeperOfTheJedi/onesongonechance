@@ -1,3 +1,5 @@
+var interval_pingsong;
+
 window.ws.onmessage = function(message) {
   var content, current_user, data, sender_email;
   console.log("received: ", message);
@@ -32,11 +34,13 @@ window.ws.onmessage = function(message) {
 
 
 
-function startTimer(duration, display) {
+function pingsong(duration, display, type, id) {
+  clearInterval(interval_pingsong);
   var start = Date.now(),
   diff,
   minutes,
   seconds;
+ interval_pingsong = "";
   function timer() {
         // get the number of seconds that have elapsed since 
         // startTimer() was called
@@ -48,57 +52,100 @@ function startTimer(duration, display) {
 
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
+        if(type == "conversation")
+        {
+          display.textContent = minutes + ":" + seconds; 
+          if (diff%2 ==0 && diff != 0) {
+            
+            $.post( "/pingsong_conversation.json?id=" + id, function( data ) {
+              if (data.html != "")
+              {
+                if(data.html.indexOf("join conversation") != -1)
+                {
+                  if($('.user_join').length <=0)
+                  {
+                    var user_join = "<center><div class='user_join text-success'>" + data.html + "</div>";
 
-        display.textContent = minutes + ":" + seconds; 
-        if (diff%5 ==0) {
-          if($('.user_has_left').length <= 0)
-          {
-            $.post( "/pingsong.json?c=1", function( data ) {
-              var user_has_left = "<center><div class='user_has_left alert alert-danger'><strong>" + data.html +"</strong> has left</div></ center>";
-              
-              $(user_has_left).appendTo('.messages').slideDown();
-              $('.chat-wrapper').scrollTop($('.messages').height());
+                    $(user_join).appendTo('.messages').slideDown();
+                    $('.chat-wrapper').scrollTop($('.messages').height());
+                  }                  
+                }
+                else if($('.user_has_left').length <= 0)
+                {
+                  var user_has_left = "<center><div class='user_has_left text-danger'><strong>" + data.html +"</strong> has left</div></ center>";
+
+                  $(user_has_left).appendTo('.messages').slideDown();
+                  $('.chat-wrapper').scrollTop($('.messages').height());
+                }                
+              }
             });
-        }
-        }    
-        if (minutes == 00 && seconds ==15){
-        openColorBox();
-        clearInterval(i);
-        }
-        if (diff <= 0) {
+            
+          }    
+          if (minutes == 00 && seconds ==15){
+            var time_say_bye = "<center><div style='max-width: 300px' class='time_say_bye text-danger text-inline'>15s left, time to say goobye forever'</div></center>"
+             $(time_say_bye).appendTo('.messages').slideDown();
+                $('.chat-wrapper').scrollTop($('.messages').height());
+          }
+          if (diff <= 0) {
             // add one second so that the count down starts at the full duration
             // example 05:00 not 04:59
             // start = Date.now() + 1000;
             display.textContent = "00:00"; 
+            $(".time_say_bye").remove();
             $('#new_message').hide();
+            if($('.conversation_over').length <= 0)
+            {
+              var conversation_over = "<center><div class='conversation_over text-info'>End</div></ center>";
+              $(conversation_over).appendTo('.messages').slideDown();
+              $('.chat-wrapper').scrollTop($('.messages').height());
+            }
+            clearInterval(interval_pingsong);
+          }
+        }
+        else if(type == "song")
+        {
+          if (diff%2 ==0 && diff != 0 ) 
+          {
+           $.post( "/pingsong.json?id=" + id, function( data ) {
+            if (data.html != "" && !$("#conversation-modal").is(':visible'))
+            {
+
+              var go_Conversation = document.getElementById("go_conversation");
+              go_Conversation.setAttribute("href", "/conversations/" + data.html);
+
+                    //  var go_Conversation = document.getElementById("cancel_conversation");
+                    // go_Conversation.setAttribute("href", ".conversations/cancel");
+                    $("#conversation-modal").modal({show: true});
+                  }
+                });
+            }
+            if(diff <=0)
+            {
+              clearInterval(interval_pingsong);
+            }
           }
         };
     // we don't want to wait a full second before the timer starts
     
-
-    setInterval(timer, 1000);
-  }
-
-  function openColorBox(){
-    $.colorbox({
-      html:" <div style='max-width: 300px' class='alert alert-danger text-inline'>15s left, time to say goobye forever'</div>",
-      width:"80%",
-      height:"80%",
-      position:"fixed",
-      top:"300px",
-      left:"300px",
-      overflow:"hidden",
-      onLoad: function() {
-        $('#cboxClose').remove();
-        setTimeout(function(){
-          $(window).colorbox.close();
-        }, 5000)
-      }
+    window.onbeforeunload = function() {
+      console.log('window.onbeforeunload');
+      clearInterval(interval_pingsong);
+    }
+    $(document).on('page:before-unload', function(event) {
+      //alert('hello turbolink');
+      console.log('page:before-unload');
+      clearInterval(interval_pingsong);
     });
+    interval_pingsong = setInterval(timer, 1000);
+    
+
   }
+
 
   window.onload = function () {
-    
-  
+    $("#go_conversation").click(function(){
+        
+    });
+
   };
 

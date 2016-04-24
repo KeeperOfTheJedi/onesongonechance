@@ -2,6 +2,28 @@ table.results {
   font-size: 0.8em;
 }
 
-#youtube_video {
-  background-color: red;
+.result-card{
+	border-top: 1px solid #f1f1f1;
+	padding-top:5px;
+	padding-bottom: 5px;
+}
+.yt-thumbnail
+{
+	width:140px;
+	float: left;
+}
+.result-card a
+{
+	color: #167ac6;
+	font-weight:bold;
+}
+.result-card .description
+{
+	    line-height: 1.3em;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+    font-size:14px;
 }

@@ -6,27 +6,43 @@
       <%= submit_tag "Search", class: 'btn btn-secondary' %>
     </div>
   <% end %>
-
-  <div class="col-sm-8">
+<% if !!@song %>
     <div id="youtube_video">
-      <% if params[:video_id] %>
-        <%= render 'video', video_id: params[:video_id] %>
-        <%= link_to 'Go to Conversation', '/conversations/1', class: 'button btn btn-primary' %>
-      <% end %>
-    </div>
-  </div>
+    <h1><%= @song.name %></h1>
+      <% @videourl = "http://www.youtube.com/embed/" + @song.utubeid + "?autoplay=1&cc_load_policy=1&fs=1" %>
+        <div class="video-container"><iframe src= <%= @videourl %> + frameborder="0" allowfullscreen></iframe>
+        </div>
 
-  <div class="col-sm-4">
-    <% if @results.present? %>
-      <% @results.each do |result| %>
-        <% if result.video? %>
-          <%= image_tag result.default_thumbnail_url, width: result.default_thumbnail_url, height: result.default_thumbnail_height %></td>
-        <% end %>
-        <span class="label label-primary"><%= result.result_type %></span>
-          <!-- <%= link_to result.title, root_path(q: params[:q], video_id: result.video_id) %> -->
-          <%= link_to result.title, {:controller => "songs", :action => "create", :user_id => current_user.id}, method: :post %> <!-- , video_id: result.video_id, gender: current_user.gender -->
-          <%= result.description %>
-      <% end %>
-    <% else %>
-      <% end %>  
+  </div>
+  <div id="current_song"> <%=params[:id] %></div>
+    <script type="text/javascript">
+    var secondsCountDown = <%= @song.length + 10%>
+    display = "";
+    var songid = $("#current_song").text();
+    pingsong(secondsCountDown, display, "song", songid);
+  </script>
+
+<% else %>
+Don't have permission
+<% end %>
+
+<!-- Modal -->
+  <div class="modal fade" id="conversation-modal" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">New conversation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Go to conversation?</p>
+        </div>
+        <div class="modal-footer">
+        <a class="btn btn-default" href="#" id="go_conversation">Yes</a>
+      
+        </div>
+      </div>
+      
+    </div>
   </div>

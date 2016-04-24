@@ -41,7 +41,34 @@ class YoutubeSearch
       results
     end
   end
-
+   def self.get_video_info_by_url(videoid)
+    videorespon = Net::HTTP.get(URI.parse("https://www.googleapis.com/youtube/v3/videos?id=" + videoid + "&part=contentDetails&key=AIzaSyD4-KUNQ2O9Y8aguY6KUNrMrVlljvPOVO8"))
+    data_json= JSON.parse videorespon
+    data_duration = data_json["items"][0]["contentDetails"]["duration"]
+    time_duration = YoutubeSearch.convertvideolength(data_duration)
+    
+    return time_duration
+  end
+  def self.convertvideolength(iso8601)
+    ret = 100;
+    minute = "";
+    second = 0;
+    iso8601 = iso8601.gsub('PT', '')
+      if(iso8601["M"])
+        minute = iso8601.split('M')[0];
+        if(iso8601["S"])
+          second = iso8601.gsub('S', '').gsub(minute + 'M', '')
+        end
+      else
+        minute = 0
+        if(iso8601["S"])
+          second = iso8601.gsub('S', '')
+        end
+      end
+       return ret = minute.to_i*60 + second.to_i
+       
+       
+  end
   # network search runs a youtube_search 
   def self.network_search(query)
     instance = new

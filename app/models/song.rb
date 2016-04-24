@@ -1,7 +1,25 @@
 class Song < ActiveRecord::Base
 
 	belongs_to :user
+	belongs_to :conversation
+	def self.update_status(song, status)
+		song.status = status
+		song.save
+	end
+	def self.update_when_matching(song, status, conversationId)
+		song.conversation_id = conversationId
+		song.status = status
+		song.save
+	end
+	def self.update_all_song_expired
+		songs = Song.where('heart_beat < ? and status != ?', Time.now.utc - 15, '4')
+		songs.each do |song|
+			song.status = "4"
+			song.save
+		end
+	end
 end
+
 
 	# belongs_to :category # not yet implemented
 
