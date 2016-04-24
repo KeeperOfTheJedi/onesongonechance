@@ -35,12 +35,6 @@
                     <img src="<%= current_user.image %>" class="prof-img-list">
                   </div>
                 </a>
-                <a href="<%= url_for(my_profile_choose_pic_path) %>" data-load-remote="<%= url_for(my_profile_choose_pic_path) %>" data-toggle="modal" class="prof-img-list-frame">
-                  <div class="profile-photos-overflow">
-                    <i class="fa fa-plus" style="z-index: 1; color: #fff; padding-left: 10px; padding-top: 4px;"></i>
-                    <img src="<%= current_user.image %>" class="prof-img-list prof-img-list-new">
-                  </div>
-                </a>
                 <% current_user.user_pictures.each do |picture| %>
                   <a href="<%= url_for(edit_user_picture_path(picture)) %>" data-load-remote="<%= url_for(edit_user_picture_path(picture)) %>" data-toggle="modal" class="prof-img-list-frame">
                     <div class="profile-photos-overflow">

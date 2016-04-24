@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
     user.oauth_token = auth.credentials.token
     user.oauth_expires_at = Time.at(auth.credentials.expires_at)
     if user.new_record?
-      graph = Koala::Facebook::API.new(auth.credentials.token)
+      graph = Koala::Facebook::API.new(user.oauth_token)
       profile = graph.get_object("me?fields=id,location,gender,languages,relationship_status,bio,cover")
       raise "Something wrong with facebook profile information" unless auth.uid == profile['id']
       user.gender = profile['gender'] if profile['gender'].present?
@@ -28,5 +28,14 @@ class User < ActiveRecord::Base
     end
     user.save
     return user
+  end
+  def fb_albums
+    graph = Koala::Facebook::API.new(self.oauth_token)
+    albums = graph.get_object("#{self.uid}?fields=id,photos.limit(1){picture},albums.limit(100){name, photos.limit(1){name,picture}}")
+    album_list = [albums['photos']['data'][0].merge({'name'=>'Photos of You'})]
+    albums['albums']['data'].map{|a| {'name' => a['name'], 'picture' => a['photos']['data'][0]['picture'], 'id' => a['id']}}.each do |album|
+      album_list.push(album)
+    end
+    album_list
   end
 end

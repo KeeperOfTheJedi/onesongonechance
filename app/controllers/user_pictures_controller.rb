@@ -19,6 +19,12 @@ class UserPicturesController < ApplicationController
 
   # GET /user_pictures/1/edit
   def edit
+    @albums = current_user.fb_albums
+  end
+
+    # GET /user_pictures_choose/1/970813166333212
+  def choose
+    @photos = current_user.fb_photos(params[:album_id])
   end
 
   # POST /user_pictures
