@@ -52,10 +52,12 @@
           <li class="<%= "default open" if @section == 'music' %>">
             <div class="link"><i class="fa fa-music"></i>Favorite bands<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <% current_user.fb_music.each do |music| %>
-                <li>
-                    <a><%= music['name'] %></a>
-                </li>
+              <% if current_user.fb_music %>
+                <% current_user.fb_music.each do |music| %>
+                  <li>
+                      <a><%= music['name'] %></a>
+                  </li>
+                <% end %>
               <% end %>
             </ul>
           </li>
@@ -63,12 +65,14 @@
             <div class="link"><i class="fa fa-users"></i>Friends<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
               <li class="profile-photos">
-              <% current_user.fb_friends.each do |frend| %>
-                  <a  class="prof-img-list-frame">
-                    <div class="profile-photos-overflow">
-                      <img src="<%= frend['picture']['data']['url'] %>" class="prof-img-list">
-                    </div>
-                  </a>
+                <% if current_user.fb_friends %>
+                  <% current_user.fb_friends.each do |frend| %>
+                    <a  class="prof-img-list-frame">
+                      <div class="profile-photos-overflow">
+                        <img src="<%= frend['picture']['data']['url'] %>" class="prof-img-list">
+                      </div>
+                    </a>
+                  <% end %>
                 <% end %>
               </li>
             </ul>
