@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
  
   helper_method :current_user
+  # layout :determine_layout
 
   def current_user
     return @current_user if @current_user 
@@ -16,4 +17,9 @@ class ApplicationController < ActionController::Base
       @current_user
     end
   end
+
+  private
+    # def determine_layout
+    #   current_user ? "private" : "public"
+    # end
 end

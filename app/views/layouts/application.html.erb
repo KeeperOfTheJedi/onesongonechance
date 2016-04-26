@@ -7,48 +7,60 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if current_user %>
+  <video autoplay  poster="/polina.jpg" id="bgvid" loop>
+    <% if request.env['PATH_INFO'] == '/' %>
+      <source src="/polina.webm" type="video/webm">
+    <% end %>
+  </video>
   <div class="container">
     <nav class="navbar navbar-light bg-faded">
       <%= link_to "Home", root_path, class: 'navbar-brand' %>
       <ul class="nav navbar-nav">
-        <% if current_user %>
-          <li class="nav-item pull-xs-right">
-            <div class="btn-group">
-              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= current_user.to_s %>
-              </button>
-              <div class="dropdown-menu">
-                <%= link_to my_profile_path(section: 'globe'), class: 'dropdown-item' do %>
-                  <i class="fa fa-user"></i> My Profile
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <%= link_to my_profile_path(section: 'picture'), class: 'dropdown-item' do %>
-                  <i class="fa fa-picture-o"></i> Photos
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <%= link_to logout_path, data: { confirm: 'Are you sure?' }, method: 'delete', class: 'dropdown-item' do %>
-                  <i class="fa fa-power-off"></i> Log out
-                <% end %>
-              </div>
+        <li class="nav-item pull-xs-right">
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= current_user.to_s %>
+            </button>
+            <div class="dropdown-menu">
+              <%= link_to my_profile_path(section: 'globe'), class: 'dropdown-item' do %>
+              <i class="fa fa-user"></i> My Profile
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to my_profile_path(section: 'picture'), class: 'dropdown-item' do %>
+              <i class="fa fa-picture-o"></i> Photos
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to logout_path, data: { confirm: 'Are you sure?' }, method: 'delete', class: 'dropdown-item' do %>
+              <i class="fa fa-power-off"></i> Log out
+              <% end %>
             </div>
-          </li>
-        <% else %>
-          <li class="nav-item pull-xs-right">
-            <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'nav-link' %>
-          </li>
-        <% end %>
+          </div>
+        </li>
       </ul>
     </nav>
     <% if flash.any? %>
-      <% flash.each do |key, value| %>
-        <div class="alert <%= flash_class_name(key) %>">
-          <%= value %>
-        </div>
-      <% end %>
+    <% flash.each do |key, value| %>
+    <div class="alert <%= flash_class_name(key) %>">
+      <%= value %>
+    </div>
+    <% end %>
     <% end %>
     <div class="container">
-    <%= yield %>
+      <%= yield %>
     </div>
   </div>
+  <% else %>
+  <video autoplay  poster="/polina.jpg" id="bgvid" loop>
+    <source src="/polina.webm" type="video/webm">
+  </video>
+  <div id="polina">
+    <h1>Polina</h1>
+    <p>filmed by Alexander Wagner 2011</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta dictum turpis, eu mollis justo gravida ac. Proin non eros blandit, rutrum est a, cursus quam. Nam ultricies, velit ac suscipit vehicula, turpis eros sollicitudin lacus, at convallis mauris magna non justo. Etiam et suscipit elit. Morbi eu ornare nulla, sit amet ornare est. Sed vehicula ipsum a mattis dapibus. Etiam volutpat vel enim at auctor.</p>
+    <p>Aenean pharetra convallis pellentesque. Vestibulum et metus lectus. Nunc consectetur, ipsum in viverra eleifend, erat erat ultricies felis, at ultricies mi massa eu ligula. Suspendisse in justo dapibus metus sollicitudin ultrices id sed nisl.</p>
+    <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'nav-link' %>
+  </div>
+  <% end %>
 </body>
 </html>
