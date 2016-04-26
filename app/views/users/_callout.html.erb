@@ -1,0 +1,17 @@
+<a href="<%= url_for(user_path(@user)) %>" data-load-remote="<%= url_for(user_path(@user)) %>" data-toggle="modal">
+  <div class="profile profile-min">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="profile-header" style="background:#000 url('<%= @user.cover %>') center center no-repeat; border-radius: 0.24rem;">
+          <img src="<%= @user.image %>" alt="<%= @user.to_s %>" class="profile-img">
+          <div class="profile-location">
+            <small><i class="fa fa-map-marker"></i> <%= @user.location %></small>
+          </div>
+        </div>
+        <div class="card-block">
+          <h4 class="card-title profile-name" style="margin: 0;"><%= @user.to_s %></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>

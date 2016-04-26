@@ -2,16 +2,9 @@
 <% if @check_user_in_conversation %>
 
 <div class="row">
-  <div class="profileinfo col-sm-6">
-    <div class="profile_picture col-sm-2">
-     <%= link_to image_tag('https://graph.facebook.com/' + @partner.uid + '/picture?width=200', class: "card-img-top img-circle profile-image", size: "70", :crop => :fill,class: "img-circle profile-image"), root_path() %> 
-   </div>
-   <div class="col-sm-10">
-     <br>
-     <h4> <%= @partner.name %></h4>
-   </div>
-
- </div>
+  
+  <% @user = @partner %>
+  <%= render 'users/callout' %>
  <div class="col-sm-6">
    <br>
    <h2 class="btn-toolbar ">
