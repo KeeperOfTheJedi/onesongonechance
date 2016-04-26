@@ -20,16 +20,16 @@ class ResultsController < ApplicationController
 
   				if result.result_type == "Video" 
   					respon_string = respon_string +
-  					"<a class='tessss' id=" + result.video_id + " onclick=add_song_to_list(this.id)>"+
+  					"<div id=" + result.video_id + " onclick=add_song_to_list(this.id)>"+
   					"<div class='row result-card'>"+
   					"<div class='yt-thumbnail'>"+
   					"<img src=" + result.default_thumbnail_url  +
   					
   					"></div>"+
-  					"<div>"+
+  					"<div class='result-title'>"+
   					result.title+
   					"</div>"+
-  					"</div></a>"
+  					"</div></div>"
   				end
 
   			end

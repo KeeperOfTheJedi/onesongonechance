@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   post 'pingsong_conversation' => 'songs#pingsong_conversation'
+  post 'get_new_song' => 'songs#getnewsong'
+  post 'add_song_in_conversation' => 'songs#addsong'
   post 'pingsong' => 'songs#pingsong'
   post 'searchsong' => 'results#searhsong'
   post 'exitconversation' => 'songs#exit'

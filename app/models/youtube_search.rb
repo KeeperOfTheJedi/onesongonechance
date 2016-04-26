@@ -49,6 +49,14 @@ class YoutubeSearch
     
     return time_duration
   end
+  def self.get_video_info_by_url(videoid)
+    videorespon = Net::HTTP.get(URI.parse("https://www.googleapis.com/youtube/v3/videos?id=" + videoid + "&part=contentDetails&key=AIzaSyD4-KUNQ2O9Y8aguY6KUNrMrVlljvPOVO8"))
+    data_json= JSON.parse videorespon
+    data_duration = data_json["items"][0]["contentDetails"]["duration"]
+    time_duration = YoutubeSearch.convertvideolength(data_duration)
+    
+    return time_duration
+  end
   def self.convertvideolength(iso8601)
     ret = 100;
     minute = "";

@@ -9,7 +9,27 @@
 	overflow-y:auto;
 	max-width:567;
 }
-.result-card
+.search-result .result-card
 {
 	max-width:560px;
+}
+.next-song-time
+{
+	display: inline-block;
+}
+.next-song-name
+{
+	display: inline-block;
+}
+.next-song-id
+{
+	display:none;
+}
+.next-song
+{
+	white-space: nowrap;
+}
+.active-song
+{
+	text-color: green;
 }

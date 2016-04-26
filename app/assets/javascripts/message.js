@@ -1,4 +1,5 @@
 var interval_pingsong;
+ var current_song_time_left;
 
 window.ws.onmessage = function(message) {
   var content, current_user, data, sender_email;
@@ -35,6 +36,7 @@ window.ws.onmessage = function(message) {
 
 
 function pingsong(duration, display, type, id) {
+  id = id.trim();
   clearInterval(interval_pingsong);
   var start = Date.now(),
   diff,
@@ -45,7 +47,7 @@ function pingsong(duration, display, type, id) {
         // get the number of seconds that have elapsed since 
         // startTimer() was called
         diff = duration - (((Date.now() - start) / 1000) | 0);
-
+        current_song_time_left = current_song_time_left -1;
         // does the same job as parseInt truncates the float
         minutes = (diff / 60) | 0;
         seconds = (diff % 60) | 0;
@@ -79,12 +81,59 @@ function pingsong(duration, display, type, id) {
                 }                
               }
             });
+
+            $.post( "/get_new_song.json?id=" + id, function( data ) {
+              if (data.html != "")
+              {
+                    for (i = 0; i < data.html.length; i++) { 
+                        var minutes = ~~(data.html[i].length/60)
+                        var seconds = data.html[i].length %60
+                        var newsong = "<li class='next-song'><div class='next-song-time'> " +minutes + ":" + seconds + "</div> <div class='next-song-name'> - " +  data.html[i].name + " </div><div class='next-song-id'>"+ data.html[i].utubeid + "</div></li>";
+                        var current_time_left = $("#timeleft").text();
+                        var total_second_left = parseInt(current_time_left.split(':')[0]) *60 + parseInt(current_time_left.split(':')[1]);
+                        total_second_left = total_second_left + parseInt(data.html[i].length);
+                        display = document.querySelector('#timeleft');
+                        var converid = $("#current_song").text();
+
+                        pingsong(total_second_left, display, "conversation", converid);
+
+                        $(newsong).appendTo('.songlist');
+
+                         var current_time_left = $("#timeleft").text();
+                          var total_second_left = parseInt(current_time_left.split(':')[0]) *60 + parseInt(current_time_left.split(':')[1]);
+                          total_second_left = total_second_left + parseInt(data.html[i].length);
+                          display = document.querySelector('#timeleft');
+                          var converid = $("#current_song").text();
+
+                          pingsong(total_second_left, display, "conversation", converid);
+                        
+                    }
+              }
+            });
+
             
           }    
           if (minutes == 00 && seconds ==15){
             var time_say_bye = "<center><div style='max-width: 300px' class='time_say_bye text-danger text-inline'>15s left, time to say goobye forever'</div></center>"
              $(time_say_bye).appendTo('.messages').slideDown();
                 $('.chat-wrapper').scrollTop($('.messages').height());
+          }
+          if (current_song_time_left <=0) 
+          {
+            playlist = $('.next-song');
+            if(playlist.length >0)
+            {
+              $('.next-song').eq(0).slideUp();
+              $('.next-song').eq(0).remove();
+               current_time_left = $("#timeleft").text();
+               next_song_time = $('.next-song-time').eq(0).text().trim();
+              current_song_time_left = parseInt(next_song_time.split(':')[0]) *60 + parseInt(next_song_time.split(':')[1]);
+              next_song_utubeid = $('.next-song-id').eq(0).text();
+              document.getElementById('iframe_video').src = "http://www.youtube.com/embed/" + next_song_utubeid + "?autoplay=1&cc_load_policy=1&fs=0";              
+              $('.next-song').eq(0).addClass("text-success")
+              
+            }
+
           }
           if (diff <= 0) {
             // add one second so that the count down starts at the full duration

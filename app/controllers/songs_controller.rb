@@ -76,6 +76,62 @@ class SongsController < ApplicationController
 			format.json  { render :json => result } 
 		end	
 	end
+	def addsong
+		conversation = Conversation.find(params[:conversationid])
+
+		@song = Song.new
+		@song.utubeid=params[:id]
+		@song.conversation_id = params[:conversationid]
+		@song.name = params[:title]
+		@song.length = YoutubeSearch.get_video_info_by_url(@song.utubeid)
+		@song.status = "3"
+		
+		@song.heart_beat = Time.now.utc + @song.length;
+
+		@song_partner = Song.new
+		@song_partner.utubeid=params[:id]
+		@song_partner.conversation_id = params[:conversationid]
+		@song_partner.name = params[:title]
+		@song_partner.length = @song.length
+		@song_partner.status = "2";
+		@song_partner.heart_beat = Time.now.utc + @song_partner.length;
+		
+		conversation.exp_time = conversation.exp_time + @song.length
+		conversation.save
+
+		partner_user_song_id = conversation.partner_user_song.user_id
+		init_user_song_id = conversation.init_user_song.user_id
+		if current_user.id == partner_user_song_id
+			@song.user_id = partner_user_song_id
+			@song_partner.user_id = init_user_song_id
+			
+
+		else
+			@song.user_id = init_user_song_id
+			@song_partner.user_id = partner_user_song_id
+		end
+		
+		if @song.save && @song_partner.save
+			respond_to do |format|   					
+				format.json  { render :json => { :status => "ok", :message => "Success!", :html => @song  }}
+			end	
+		end
+
+	end
+	def getnewsong
+		
+		@new_songs = Song.where("conversation_id = ? AND user_id = ? AND status = ?", params[:id].to_i, current_user.id, '2').order("id ASC") 
+		if !!@new_songs
+				@new_songs.each do |song|
+				song.status = "3"
+				song.save
+			end
+			respond_to do |format|   					
+				format.json  { render :json => { :status => "ok", :message => "Success!", :html => @new_songs  }}
+			end	
+		end
+	end 
+	
 	def exit
 		@song = Song.find(params[:id])
 		@song.heart_beat = Time.now.utc - 30

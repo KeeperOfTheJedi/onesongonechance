@@ -51,19 +51,27 @@
   </div>
   <div class="col-sm-4">
     <div class="row">
-
-      <% @videourl = "http://www.youtube.com/embed/" + @conversation.init_user_song.utubeid + "?autoplay=1&cc_load_policy=1&fs=0" %>
+      <div id="current_song" style="display: none"> <%=params[:id] %></div>
+      <% @videourl = "http://www.youtube.com/embed/" + @conversation.init_user_song.utubeid + "?autoplay=1&cc_load_policy=1&fs=0&controls=0" %>
       <div class="video-container"><iframe id='iframe_video' src= <%= @videourl %> + frameborder="0" allowfullscreen></iframe>
 
         <script type="text/javascript">
-          var secondsCountDown = <%= @song.length + 10%>
-          display = document.querySelector('#time');
+        var secondsCountDown = <%= @song.length%>
+        var song_name = "<%= @song.name%>" ;
+        var song_id = "<%= @song.utubeid%>";
+          display = document.querySelector('#timeleft');
           var converid = $("#current_song").text();
+          current_song_time_left = secondsCountDown;
+           minutes = ~~(secondsCountDown/60);
+            var seconds = secondsCountDown %60;
+            var newsong = "<li class='next-song text-success'><div class='next-song-time'> " +minutes + ":" + seconds + "</div> <div class='next-song-name'> - " + song_name + " </div><div class='next-song-id'>"+ song_id + "</div></li>";
+            $(newsong).appendTo('.songlist');
+
 
           pingsong(secondsCountDown, display, "conversation", converid);
         </script>
       </div>
-      Time left: <span id="time"></span>
+      Time left: <span id="timeleft"></span>
     </div>
     <div class="row songlist"></div>
   </div>
@@ -127,7 +135,29 @@ DONT HAVE PERMISSION
   }
   function add_song_to_list(id)
   {
-         alert(id);
+    var title = $('#' + id).find('.result-title').text()
+    var converid = $("#current_song").text();
+    $.post( "/add_song_in_conversation.json?id=" + id + "&title=" + title + "&conversationid=" + converid, function( data ) {
+
+      if (data.html != "")
+      {
+        var minutes = ~~(data.html.length/60)
+        var seconds = data.html.length %60
+        var newsong = "<li class='next-song'><div class='next-song-time'> " +minutes + ":" + seconds + "</div> <div class='next-song-name'> - " +  data.html.name + " </div><div class='next-song-id'>"+ data.html.utubeid + "</div></li>";
+        var current_time_left = $("#timeleft").text();
+        var total_second_left = parseInt(current_time_left.split(':')[0]) *60 + parseInt(current_time_left.split(':')[1]);
+        total_second_left = total_second_left + parseInt(data.html.length);
+        display = document.querySelector('#timeleft');
+        var converid = $("#current_song").text();
+
+        pingsong(total_second_left, display, "conversation", converid);
+
+        $(newsong).appendTo('.songlist');
+        $('#' + id).slideUp();
+      }
+    });
+
+
   }
   $('#yourForm').submit(function(event){
     $("#loadinggif").css("display", "block");
