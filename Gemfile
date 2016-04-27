@@ -30,6 +30,8 @@ gem 'dotenv-rails', :groups => [:development, :test, :production]
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'activeadmin', github: 'activeadmin'
+
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'redcarpet'
 gem 'simple_form'
