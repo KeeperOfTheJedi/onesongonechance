@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+  :recoverable, :rememberable, :trackable, :validatable
   has_many :songs
   has_many :user_pictures
   has_many :sent_messages, :foreign_key =>  'sender_id', class_name: 'Message'
@@ -60,5 +64,8 @@ class User < ActiveRecord::Base
     graph = Koala::Facebook::API.new(self.oauth_token)
     friends = graph.get_object("#{self.uid}?fields=id,friends.limit(1000){name,picture}")
     friends['friends']['data'] if friends['friends'].present?
+  end
+  def account_active?
+    banned_at.nil?
   end
 end

@@ -60,6 +60,8 @@ group :development, :test do
   gem 'spring'
 end
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-tether', '>= 1.1.0'
-end
+# source 'https://rails-assets.org' do
+  gem 'rails-assets-tether'
+# end
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'devise'
