@@ -33,10 +33,12 @@ video {
 }
 
 a {
+  color: white;
   text-decoration: none;
   background-color: transparent;
 }
 a:hover {
+  color: white;
   text-decoration: none;
 }
 
@@ -153,7 +155,7 @@ a:hover {
   z-index: 1030;
 }
 
-.jumbotron {
+.conversation-wrapper, .jumbotron {
   background: rgba(0,0,0,0.3);
   color: white;
 }
