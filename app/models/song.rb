@@ -12,7 +12,7 @@ class Song < ActiveRecord::Base
 		song.save
 	end
 	def self.update_all_song_expired
-		songs = Song.where('heart_beat < ? and status != ?', Time.now.utc - 15, '4')
+		songs = Song.where('heart_beat < ? and status != ?', Time.now.utc - 20, '4')
 		songs.each do |song|
 			song.status = "4"
 			song.save

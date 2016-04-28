@@ -34,21 +34,21 @@ def self.partner_id(current_user_id, conversation)
 end
 def self.matching_new_conversation(song)
   
-  partner_songs = Song.where("utubeid = ? and id != ? and status = ?", song.utubeid, song.id, '1')
+  partner_songs = Song.where("utubeid = ? and id != ? and status = ? and heart_beat > ?", song.utubeid, song.id, '1', Time.now.utc-20)
   if !!partner_songs
     partner_songs.each do |partner_song|  #check exit conversation with this partner
-      exit_conversation = Conversation.where('init_user_song_id = ? AND partner_user_song_id = ?', song.id, partner_song.id)
-      if exit_conversation.count == 0
-        exit_conversation = Conversation.where('init_user_song_id = ? AND partner_user_song_id = ?', partner_song.id, song.id)
+      exsit_conversation = Conversation.where('init_user_song_id = ? AND partner_user_song_id = ?', song.id, partner_song.id)
+      if exsit_conversation.count == 0
+        exsit_conversation = Conversation.where('init_user_song_id = ? AND partner_user_song_id = ?', partner_song.id, song.id)
       end
 
-      if exit_conversation.count == 0
+      if exsit_conversation.count == 0
            
 
         conversation = Conversation.new 
         conversation.init_user_song_id = song.id
         conversation.partner_user_song_id = partner_song.id
-        conversation.exp_time = Time.now + (song.length + 20)
+        conversation.exp_time = Time.now + (song.length + 10)
         conversation.save
         Song.update_when_matching(partner_song, "2",conversation.id)
         Song.update_when_matching(song, "2",conversation.id)   

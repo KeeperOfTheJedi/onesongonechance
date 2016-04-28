@@ -61,12 +61,12 @@ class SongsController < ApplicationController
 		if song.status == "1"	#listenning song, not in conversation
 			@new_conversation = Conversation.matching_new_conversation(song)
 
-			if !!@new_conversation.id
+			if @new_conversation.id != nil
 				result = { :status => "ok", :message => "Success!", :html => @new_conversation.id  }	    	  
 			end		 
 		elsif song.status == "2" #waiting join conversation
 			@conversation = Conversation.find_conversation_by_song(song)
-			if !!@conversation
+			if @conversation != nil
 				result = { :status => "ok", :message => "Success!", :html => @conversation.id  }
 			else
 				Song.update_status(song, "1")
@@ -103,7 +103,7 @@ class SongsController < ApplicationController
 		init_user_song_id = conversation.init_user_song.user_id
 		if current_user.id == partner_user_song_id
 			@song.user_id = partner_user_song_id
-			@song_partner.user_id = init_user_song_id
+			@song_partpner.user_id = init_user_song_id
 			
 
 		else

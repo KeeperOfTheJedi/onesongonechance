@@ -1,19 +1,13 @@
-<h1>Youtube Search</h1>
-
-  <%= form_tag nil, method: 'get', class: 'form-inline', style: 'margin-bottom: 20px' do %>
-    <div class="form-group">
-      <%= text_field_tag :q, params[:q], class: 'form-control' %>
-      <%= submit_tag "Search", class: 'btn btn-secondary' %>
-    </div>
-  <% end %>
 <% if !!@song %>
+
+    <h1 style="color: white;font-weight: bold;"><%= @song.name %></h1>
     <div id="youtube_video">
-    <h1><%= @song.name %></h1>
       <% @videourl = "http://www.youtube.com/embed/" + @song.utubeid + "?autoplay=1&cc_load_policy=1&fs=1" %>
         <div class="video-container"><iframe src= <%= @videourl %> + frameborder="0" allowfullscreen></iframe>
         </div>
 
   </div>
+
   <div id="current_song"> <%=params[:id] %></div>
     <script type="text/javascript">
     var secondsCountDown = <%= @song.length + 10%>
@@ -28,18 +22,15 @@ Don't have permission
 
 <!-- Modal -->
   <div class="modal fade" id="conversation-modal" role="dialog" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width: 600px">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">New conversation</h4>
-        </div>
-        <div class="modal-body">
-          <p>Go to conversation?</p>
+          <h4 class="modal-title">Go to conversation</h4>
         </div>
         <div class="modal-footer">
-        <a class="btn btn-default" href="#" id="go_conversation">Yes</a>
+        <center><a class="btn btn-default" href="#" id="go_conversation">Ok</a></center>
       
         </div>
       </div>
