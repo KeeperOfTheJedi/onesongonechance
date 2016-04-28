@@ -81,7 +81,7 @@ class SongsController < ApplicationController
 
 		@song = Song.new
 		@song.utubeid=params[:id]
-		@song.conversation_id = params[:conversationid]
+		@song.conversation_id = params[:conversationid].strip
 		@song.name = params[:title]
 		@song.length = YoutubeSearch.get_video_info_by_url(@song.utubeid)
 		@song.status = "3"
@@ -101,9 +101,10 @@ class SongsController < ApplicationController
 
 		partner_user_song_id = conversation.partner_user_song.user_id
 		init_user_song_id = conversation.init_user_song.user_id
+		
 		if current_user.id == partner_user_song_id
 			@song.user_id = partner_user_song_id
-			@song_partpner.user_id = init_user_song_id
+			@song_partner.user_id = init_user_song_id
 			
 
 		else
@@ -157,7 +158,7 @@ class SongsController < ApplicationController
 	def create
 		@song = Song.new(song_params)
 		@song.heart_beat = Time.now.utc
-		@song.status = 1
+		@song.status = "1"
 
 		if @song.save
 			redirect_to song_path(@song)
@@ -171,7 +172,7 @@ class SongsController < ApplicationController
 		@song = Song.find_by_id(params[:id])
 		@song.heart_beat = Time.now.utc
 		YoutubeSearch.get_video_info_by_url(@song.utubeid)
-		@song.status = "1"
+		
 		@song.length = YoutubeSearch.get_video_info_by_url(@song.utubeid)
 		@song.save
 		Song.update_all_song_expired()
