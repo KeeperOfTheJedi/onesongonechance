@@ -57,7 +57,7 @@ function pingsong(duration, display, type, id) {
         if(type == "conversation")
         {
           display.textContent = minutes + ":" + seconds; 
-          if (diff%2 ==0 && diff != 0) {
+          if (diff%3 ==0 && diff != 0) {
             
             $.post( "/pingsong_conversation.json?id=" + id, function( data ) {
               if (data.html != "")
@@ -88,7 +88,7 @@ function pingsong(duration, display, type, id) {
                     for (i = 0; i < data.html.length; i++) { 
                         var minutes = ~~(data.html[i].length/60)
                         var seconds = data.html[i].length %60
-                        var newsong = "<li class='next-song'><div class='next-song-time'> " +minutes + ":" + seconds + "</div> <div class='next-song-name'> - " +  data.html[i].name + " </div><div class='next-song-id'>"+ data.html[i].utubeid + "</div></li>";
+                        var newsong = "<li class='next-song'><div class='next-song-time'> " +minutes + ":" + seconds + "</div> <div class='next-song-name'>" +  data.html[i].name + " </div><div class='next-song-id'>"+ data.html[i].utubeid + "</div></li>";
                         var current_time_left = $("#timeleft").text();
                         var total_second_left = parseInt(current_time_left.split(':')[0]) *60 + parseInt(current_time_left.split(':')[1]);
                         total_second_left = total_second_left + parseInt(data.html[i].length);
@@ -130,7 +130,7 @@ function pingsong(duration, display, type, id) {
               current_song_time_left = parseInt(next_song_time.split(':')[0]) *60 + parseInt(next_song_time.split(':')[1]);
               next_song_utubeid = $('.next-song-id').eq(0).text();
               document.getElementById('iframe_video').src = "http://www.youtube.com/embed/" + next_song_utubeid + "?autoplay=1&cc_load_policy=1&fs=0";              
-              $('.next-song').eq(0).addClass("text-success")
+              $('.next-song').eq(0).addClass("active-song")
               
             }
 
@@ -142,6 +142,8 @@ function pingsong(duration, display, type, id) {
             display.textContent = "00:00"; 
             $(".time_say_bye").remove();
             $('#new_message').hide();
+            $('#btn-add-song').hide();
+            
             if($('.conversation_over').length <= 0)
             {
               var conversation_over = "<center><div class='conversation_over text-info'>End</div></ center>";
