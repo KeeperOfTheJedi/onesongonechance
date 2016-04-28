@@ -127,6 +127,22 @@ a:hover {
       position: relative;
     }
   }
+  .navbar-form {
+    border-color: #2b2e32;
+    float: left !important;
+    border: 0 none;
+    box-shadow: none;
+    width: auto;
+    border: none;
+    box-shadow: none;
+    margin: 6px 5px;
+    padding: 0 15px;
+    .form-group {
+      display: inline-block;
+      margin-bottom: 0;
+      vertical-align: middle;
+    }
+  }
 
 }
 

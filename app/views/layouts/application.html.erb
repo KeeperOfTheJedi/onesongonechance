@@ -10,35 +10,48 @@
   <% if current_user %>
   <video autoplay  poster="/polina.jpg" id="bgvid" loop>
     <% if request.env['PATH_INFO'] == '/' %>
-      <source src="/polina.webm" type="video/webm">
+      <!-- <source src="/polina.webm" type="video/webm"> -->
     <% end %>
   </video>
   <div class="container">
-    <nav class="navbar navbar-light bg-faded">
-      <%= link_to "Home", root_path, class: 'navbar-brand' %>
-      <ul class="nav navbar-nav">
-        <li class="nav-item pull-xs-right">
-          <div class="btn-group">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= current_user.to_s %>
-            </button>
-            <div class="dropdown-menu">
-              <%= link_to my_profile_path(section: 'globe'), class: 'dropdown-item' do %>
-              <i class="fa fa-user"></i> My Profile
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to my_profile_path(section: 'picture'), class: 'dropdown-item' do %>
-              <i class="fa fa-picture-o"></i> Photos
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to logout_path, data: { confirm: 'Are you sure?' }, method: 'delete', class: 'dropdown-item' do %>
-              <i class="fa fa-power-off"></i> Log out
-              <% end %>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <%= link_to "One Song One Chance", root_path, class: 'navbar-brand' %>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <%= form_tag results_path, method: 'get', class: 'navbar-form navbar-left', role: 'search' do %>
+            <div class="form-group">
+              <%= text_field_tag :q, params[:q], class: 'form-control' %>
             </div>
-          </div>
-        </li>
-      </ul>
-    </nav>
+            <%= submit_tag "Search", class: 'btn btn-default' %>
+          <% end %>
+          <ul class="nav navbar-nav">
+            <li class="dropdown pull-xs-right" style="min-width: 158px;">
+              <a class="dropdown-toggle" data-toggle="dropdown" style="text-align: center;">
+                <%= current_user.to_s %> <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="download">
+                <li><%= link_to my_profile_path(section: 'globe') do %>
+                  <i class="fa fa-user"></i> My Profile
+                <% end %></li>
+                <li class="divider"></li>
+                <li><%= link_to my_profile_path(section: 'picture') do %>
+                  <i class="fa fa-picture-o"></i> Photos
+                <% end %></li>
+                <li class="divider"></li>
+                <li><%= link_to logout_path, data: { confirm: 'Are you sure?' }, method: 'delete' do %>
+                  <i class="fa fa-power-off"></i> Log out
+                <% end %></li>
+              </ul>
+            </li>
+            <li class="pull-xs-right">
+              <a href="#">Help</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <% if flash.any? %>
     <% flash.each do |key, value| %>
     <div class="alert <%= flash_class_name(key) %>">
@@ -46,7 +59,7 @@
     </div>
     <% end %>
     <% end %>
-    <div class="container">
+    <div class="container" style="padding: 30px 0px 20px">
       <%= yield %>
     </div>
   </div>
@@ -54,12 +67,16 @@
   <video autoplay  poster="/polina.jpg" id="bgvid" loop>
     <source src="/polina.webm" type="video/webm">
   </video>
-  <div id="polina">
-    <h1>Polina</h1>
-    <p>filmed by Alexander Wagner 2011</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta dictum turpis, eu mollis justo gravida ac. Proin non eros blandit, rutrum est a, cursus quam. Nam ultricies, velit ac suscipit vehicula, turpis eros sollicitudin lacus, at convallis mauris magna non justo. Etiam et suscipit elit. Morbi eu ornare nulla, sit amet ornare est. Sed vehicula ipsum a mattis dapibus. Etiam volutpat vel enim at auctor.</p>
-    <p>Aenean pharetra convallis pellentesque. Vestibulum et metus lectus. Nunc consectetur, ipsum in viverra eleifend, erat erat ultricies felis, at ultricies mi massa eu ligula. Suspendisse in justo dapibus metus sollicitudin ultrices id sed nisl.</p>
-    <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'nav-link' %>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>One Song One Chance </h1>
+      <p>
+        Share your mood and listen your favorite clips. Maybe someone at the very same moment has a same mood and the same track on the player. Why don't you take the opportunity?
+      </p>
+      <p>
+        <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'btn btn-primary btn-lg' %>
+      </p>
+    </div>
   </div>
   <% end %>
 </body>

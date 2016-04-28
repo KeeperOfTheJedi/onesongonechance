@@ -1,34 +1,38 @@
-<h1>Youtube Search</h1>
-
-<%= form_tag nil, method: 'get', class: 'form-inline', style: 'margin-bottom: 20px' do %>
-<div class="form-group">
-  <%= text_field_tag :q, params[:q], class: 'form-control' %>
-  <%= submit_tag "Search", class: 'btn btn-secondary' %>
-</div>
-<% end %>
-
 
 <% if @results.present? %>
-<% @results.each do |result| %>
-<% if result.video? %>
-
-
-<% if result.result_type == "Video" %> 
-<div class="row result-card">
-  <div class="yt-thumbnail">
-   <%=  image_tag result.default_thumbnail_url %>
- </div>
- <div>
-   <%= link_to result.title, {:controller => "songs", :action => "create", :user_id => current_user.id, name: result.title, utubeid: result.video_id, length: 100}, method: :post %>
-   <br>
-   <div class="description">
-     <%= result.description %>
-   </div>
- </div>
-</div>
-<% end%>
-
-<% end %>
-
-<% end %>  
+  <% @results.each do |result| %>
+    <% if result.video? %>
+      <% if result.result_type == "Video" %> 
+        <div class="row result-card">
+          <div class="yt-thumbnail">
+           <%=  image_tag result.default_thumbnail_url %>
+         </div>
+         <div>
+           <%= link_to result.title, {:controller => "songs", :action => "create", :user_id => current_user.id, name: result.title, utubeid: result.video_id, length: 100}, method: :post %>
+           <br>
+           <div class="description">
+             <%= result.description %>
+           </div>
+         </div>
+        </div>
+      <% end%>
+    <% end %>
+  <% end %>
+<% else %>
+  <div class="jumbotron">
+    <h1>Let's start yayy!!</h1>
+    <p>
+      Be careful when you pick up a song, especially if you have a awful taste.
+      <br/>
+      JK :)
+    </p>
+    <p>
+      <%= form_tag nil, method: 'get', class: 'form-inline', style: 'margin-bottom: 20px' do %>
+      <div class="form-group">
+        <%= text_field_tag :q, params[:q], class: 'form-control' %>
+        <%= submit_tag "Search", class: 'btn btn-secondary' %>
+      </div>
+      <% end %>
+    </p>
+  </div>
 <% end %>  
