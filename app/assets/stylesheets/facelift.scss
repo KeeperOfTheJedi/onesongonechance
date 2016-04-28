@@ -176,7 +176,7 @@ a:hover {
 .modal-header {
     border-bottom: 1px solid #1c1e22;
 }
-.modal-content {
+.modal-content, .modal-body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     background-clip: padding-box;
     // background-color: #2e3338;
