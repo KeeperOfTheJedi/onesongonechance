@@ -19,19 +19,27 @@
       <% end %>
     <% end %>
   <% else %>
-    <h1>Let's start yayy!!</h1>
-    <p>
-      Be careful when you pick up a song, especially if you have a awful taste.
-      <br/>
-      JK :)
+    <h1>Share your mood via music together</h1>
+    <p class="full-description">
+     
     </p>
     <p>
       <%= form_tag nil, method: 'get', class: 'form-inline', style: 'margin-bottom: 20px' do %>
       <div class="form-group">
-        <%= text_field_tag :q, params[:q], class: 'form-control' %>
+        <%= text_field_tag :q, params[:q], class: 'form-control', placeholder: 'Type song name...' %>
         <%= submit_tag "Search", class: 'btn btn-secondary' %>
       </div>
       <% end %>
     </p>
   <% end %>
 </div>
+<script>
+    $(function(){
+        $(".full-description").typed({
+            strings: ["Maybe someone at the very same moment has a same mood and the same track on the player. Why don't you take the opportunity?"],
+            typeSpeed: 1,
+            loop: true,
+             backDelay: 4000,
+        });
+    });
+</script>

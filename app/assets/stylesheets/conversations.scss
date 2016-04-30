@@ -30,9 +30,9 @@
 {
   color: #000;
 
-	border-bottom: 2px solid #f1f1f1;
-	
-	background-color: white;
+	margin-bottom:3px;
+	color:white;
+	background: rgba(0, 0, 0, 0.3);
 	padding:10px;
 
     font-weight: 100;
@@ -40,7 +40,7 @@
 .active-song
 {
 	font-weight: bold;
-	background-color: #f2f2f2;
+	background: rgba(0, 0, 0, 0.3);
 	color:#f50;
 }
 .ytplayer
@@ -57,8 +57,7 @@ height: 400px;
   overflow-y:auto;
   max-width: 200em;
   margin: 0 auto;
-  border: 2px solid #efefef;
-  background-color:white;
+  background: rgba(0, 0, 0, 0.3);
 }
 * {
   margin: 0;
@@ -110,6 +109,7 @@ ul.ChatLog {
 .ChatLog__entry .ChatLog__message {
   position: relative;
   margin: 0 12px;
+  color:black;
 }
 
 .ChatLog__entry .ChatLog__message::before {
@@ -195,4 +195,14 @@ li
 #btn-add-song:hover
 {
 	cursor: pointer;
+}
+.btn-submit-message
+{
+	display:none;
+	    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+.form-send-message
+{
+	display:block;
 }

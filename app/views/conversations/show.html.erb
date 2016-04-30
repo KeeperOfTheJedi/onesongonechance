@@ -32,11 +32,11 @@
       <% if current_user %>
       <div class="currentuser"><%= current_user.email %></div>
       <%= form_for Message.new, remote: true do |f| %>
-      <div class="input-group">
-        <%= f.text_field :content, class: 'form-control', autocomplete: "off", 'data-user' => current_user.email %>
+      <div class="input-group form-send-message">
+        <%= f.text_field :content, class: 'form-control', autocomplete: "off", 'data-user' => current_user.email, placeholder: 'Write something nice!' %>
         <%= f.hidden_field  :conversation_id, :value => params[:id], class: 'form-control' %>
         <div class="input-group-btn">
-          <%= f.submit "Send", class: 'btn btn-secondary' %>
+          <%= f.submit "Send", class: 'btn btn-secondary btn-submit-message' %>
         </div>
       </div>
       <% end %>

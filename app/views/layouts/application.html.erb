@@ -54,12 +54,10 @@
     </div>
     <% if flash.any? %>
     <% flash.each do |key, value| %>
-    <div class="alert <%= flash_class_name(key) %>">
-      <%= value %>
-    </div>
+    
     <% end %>
     <% end %>
-    <div class="container" style="padding: 30px 0px 20px">
+    <div class="container" style="padding: 0px 0px 20px">
       <%= yield %>
     </div>
   </div>
@@ -69,7 +67,7 @@
   </video>
   <div class="container">
     <div class="jumbotron">
-      <h1>One Song One Chance </h1>
+      <h1 style="font-weight: bold;">One Song One Chance </h1>
       <p>
         Share your mood and listen your favorite clips. Maybe someone at the very same moment has a same mood and the same track on the player. Why don't you take the opportunity?
       </p>

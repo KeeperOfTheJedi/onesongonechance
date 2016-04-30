@@ -6,4 +6,5 @@
 //= require bootstrap-sprockets
 //= require results
 //= require accordion
+//= require typed
 //= require_tree .
